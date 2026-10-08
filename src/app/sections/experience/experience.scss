@@ -1,203 +1,194 @@
-.experience {
-
-  padding: 140px 0;
-
-  background: #fff;
+.layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: clamp(32px, 6vw, 96px);
+  align-items: start;
 }
 
-.experience h2 {
-
-  font-size: 4rem;
-
-  margin-top: 20px;
-
-  max-width: 700px;
-
-  line-height: 1.1;
+.sticky {
+  position: sticky;
+  top: 120px;
+  margin-bottom: 0;
 }
 
 .timeline {
-
   position: relative;
-
-  margin-top: 80px;
-}
-
-.timeline::before {
-
-  content: '';
-
-  position: absolute;
-
-  left: 170px;
-
-  top: 0;
-
-  width: 3px;
-
-  height: 100%;
-
-  background:
-    linear-gradient(
-      #ff8c42,
-      #ff5e7d
-    );
-}
-
-.timeline-item {
-
-  position: relative;
-
   display: grid;
+  gap: 16px;
+  padding-left: 32px;
 
-  grid-template-columns: 140px 1fr;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    left: 7px;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(var(--accent-a), var(--accent-b) 40%, var(--border) 80%);
+    transform-origin: top;
+  }
 
-  gap: 60px;
-
-  margin-bottom: 60px;
+  // The rail "draws" itself as you scroll through the timeline.
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      &::before {
+        animation: draw-rail linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 70%;
+      }
+    }
+  }
 }
 
-.timeline-item::after {
-
-  content: '';
-
-  position: absolute;
-
-  left: 161px;
-
-  top: 16px;
-
-  width: 20px;
-
-  height: 20px;
-
-  border-radius: 50%;
-
-  background:
-    linear-gradient(
-      135deg,
-      #ff8c42,
-      #ff5e7d
-    );
-
-  box-shadow:
-    0 0 20px rgba(255,94,125,.4);
+@keyframes draw-rail {
+  from {
+    transform: scaleY(0);
+  }
 }
 
-.year {
-
-  color: #ff8c42;
-
-  font-weight: 700;
+// Nodes pulse once when their card arrives.
+.role.is-visible .node {
+  animation: node-pop 0.6s var(--ease-spring) 0.25s both;
 }
 
-.timeline-card {
-
-  background: white;
-
-  padding: 35px;
-
-  border-radius: 32px;
-
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.06);
-
-  transition: .4s ease;
-}
-
-.timeline-card:hover {
-
-  transform:
-    translateY(-8px);
-
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.1);
-}
-
-.timeline-card h3 {
-
-  font-size: 2rem;
+@keyframes node-pop {
+  from {
+    scale: 0;
+  }
+  60% {
+    scale: 1.4;
+  }
 }
 
 .role {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  padding: clamp(20px, 3vw, 28px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: border-color 0.3s ease, box-shadow 0.4s var(--ease-out), transform 0.4s var(--ease-out);
 
-  display: block;
+  &:hover {
+    border-color: var(--accent-border);
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
+  }
 
-  margin-top: 10px;
+  &.current {
+    box-shadow: var(--shadow-md);
 
-  color: #777;
+    .node {
+      background: var(--accent-gradient);
+      box-shadow: 0 0 0 5px var(--accent-soft);
+    }
+  }
 }
 
-.company-tags {
+.node {
+  position: absolute;
+  top: 32px;
+  left: -32px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent-a);
+}
 
-  margin-top: 25px;
-
+.role-head {
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
 
+  h3 {
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+  }
+}
+
+.company {
+  margin-top: 4px;
+  font-weight: 600;
+  color: var(--accent-ink);
+
+  span {
+    font-weight: 400;
+    color: var(--muted);
+  }
+}
+
+.period {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.now {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px color-mix(in oklab, #22c55e 25%, transparent);
+}
+
+.highlights {
+  display: grid;
   gap: 10px;
 
-  flex-wrap: wrap;
-}
+  li {
+    position: relative;
+    padding-left: 20px;
+    color: var(--muted);
+    font-size: 0.96rem;
 
-.company-tags span {
-
-  padding: 10px 16px;
-
-  border-radius: 999px;
-
-  background: #fff4ef;
-
-  color: #ff7a45;
-
-  font-size: .85rem;
-
-  font-weight: 600;
-}
-
-.achievements {
-
-  margin-top: 25px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 14px;
-}
-
-.achievements div {
-
-  color: #555;
-
-  line-height: 1.6;
-
-  font-weight: 500;
-}
-
-@media(max-width:992px){
-
-  .experience h2 {
-
-    font-size: 3rem;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 0.65em;
+      width: 8px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--accent-a);
+    }
   }
+}
 
-  .timeline::before {
-
-    display: none;
-  }
-
-  .timeline-item {
-
+@media (max-width: 960px) {
+  .layout {
     grid-template-columns: 1fr;
   }
 
-  .timeline-item::after {
+  .sticky {
+    position: static;
+    margin-bottom: 8px;
+  }
+}
 
-    display: none;
+@media (max-width: 480px) {
+  .timeline {
+    padding-left: 22px;
+
+    &::before {
+      left: 3px;
+    }
   }
 
-  .year {
-
-    margin-bottom: -35px;
+  .node {
+    left: -24px;
+    width: 12px;
+    height: 12px;
   }
 }

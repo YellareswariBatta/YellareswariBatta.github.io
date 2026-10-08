@@ -1,0 +1,62 @@
+<a class="skip-link" href="#main" (click)="go($event, 'main')">Skip to content</a>
+
+<header class="nav" [class.scrolled]="scrolled()" [class.open]="menuOpen()">
+  <div class="progress" aria-hidden="true"></div>
+
+  <nav class="nav-inner container" aria-label="Primary">
+    <a class="brand" href="#top" (click)="go($event, 'top')" aria-label="Yellareswari Batta, back to top">
+      <span class="mark" aria-hidden="true">YB</span>
+      <span class="brand-name">Yellareswari<span class="dot">.</span></span>
+    </a>
+
+    <ul class="links" id="nav-links">
+      @for (link of links; track link.id) {
+        <li>
+          <a
+            [href]="'#' + link.id"
+            [class.active]="active() === link.id"
+            [attr.aria-current]="active() === link.id ? 'true' : null"
+            (click)="go($event, link.id)"
+            >{{ link.label }}</a
+          >
+        </li>
+      }
+      <li class="mobile-only">
+        <a [href]="profile.resume" target="_blank" rel="noopener">
+          Resume <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        </a>
+      </li>
+    </ul>
+
+    <div class="actions">
+      <button
+        class="icon-btn"
+        type="button"
+        (click)="theme.toggleTheme()"
+        [attr.aria-label]="theme.theme() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
+      >
+        <i
+          class="fa-solid"
+          [class.fa-sun]="theme.theme() === 'dark'"
+          [class.fa-moon]="theme.theme() === 'light'"
+          aria-hidden="true"
+        ></i>
+      </button>
+
+      <a class="btn btn-primary cta" href="#contact" appMagnetic (click)="go($event, 'contact')">
+        Let&apos;s talk <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </a>
+
+      <button
+        class="icon-btn menu-btn"
+        type="button"
+        (click)="menuOpen.set(!menuOpen())"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="nav-links"
+        aria-label="Toggle menu"
+      >
+        <span class="burger" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </nav>
+</header>

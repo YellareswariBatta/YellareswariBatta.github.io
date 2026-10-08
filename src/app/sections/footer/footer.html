@@ -1,38 +1,10 @@
 <footer class="footer">
-
-    <div class="container footer-content">
-
-        <div class="footer-left">
-
-            <h3>
-                Yellareswari
-                <span class="gradient-text">
-                    Batta
-                </span>
-            </h3>
-
-            <p>
-                Building scalable digital products with Angular, UX thinking and modern frontend architecture.
-            </p>
-
-            <div class="footer-tags">
-
-  <span>Angular</span>
-  <span>RxJS</span>
-  <span>NgRx</span>
-  <span>TypeScript</span>
-  <span>UI/UX</span>
-
-</div>
-
-        </div>
-    </div>
-
-    <div class="copyright">
-
-        © 2026 Yellareswari Batta.
-        Crafted with Angular & ❤️
-
-    </div>
-
+  <div class="container footer-inner">
+    <p>
+      © {{ year }} {{ profile.name }}. Designed &amp; built with Angular, Signals and a home-grown design system.
+    </p>
+    <a href="#top" class="top" (click)="toTop($event)">
+      Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </a>
+  </div>
 </footer>

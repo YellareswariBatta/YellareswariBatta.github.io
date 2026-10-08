@@ -1,0 +1,23 @@
+<section class="section process" id="process" aria-labelledby="process-title">
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-head center" appReveal>
+      <span class="eyebrow">How I work</span>
+      <h2 id="process-title">From a fuzzy idea to a <span class="gradient-text">shipped experience.</span></h2>
+      <p>A collaborative, user-first process — with clients in the loop every week.</p>
+    </div>
+
+    <ol class="steps">
+      @for (step of steps; track step.title; let i = $index) {
+        <li class="card step" appSpotlight appReveal [revealDelay]="i * 90">
+          <div class="step-top">
+            <span class="step-icon"><i [class]="step.icon" aria-hidden="true"></i></span>
+            <span class="step-num">0{{ i + 1 }}</span>
+          </div>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.description }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>

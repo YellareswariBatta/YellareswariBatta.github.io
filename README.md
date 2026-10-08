@@ -1,62 +1,34 @@
-# YellareswariPortfolio
+# Yellareswari Batta — Portfolio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+Personal portfolio of **Yellareswari Batta**, Senior Full Stack Engineer & UI/UX Developer.
 
-## Development server
+**Live:** https://yellareswaribatta.github.io/
 
-To start a local development server, run:
+## Highlights
 
-```bash
-ng serve
-```
+- **Live design tokens** — pick an accent or toggle dark mode in the hero and the whole site re-themes through CSS custom properties.
+- **Drag & drop sandbox** — build a small app screen inside a phone mock-up (Angular CDK), with keyboard-friendly add/remove and screen-reader announcements.
+- **Case studies** with illustrative, hand-built UI previews.
+- **Motion** — staggered reveals, scroll-driven animations, 3D tilt, magnetic buttons and a cursor follower, all disabled under `prefers-reduced-motion`.
+- **Accessible** — semantic landmarks, skip link, visible focus states and WCAG AA contrast.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Tech
 
-## Code scaffolding
+Angular 21 (standalone components, Signals, zoneless) · TypeScript · SCSS · Angular CDK · Vitest
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+All content lives in [`src/app/data/portfolio.data.ts`](src/app/data/portfolio.data.ts), so updating the site after a resume change means editing a single file.
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Develop
 
 ```bash
-ng generate --help
+npm install
+npm start          # http://localhost:4200/
+npm test           # unit tests (Vitest)
+npm run build      # production build → dist/yellareswari-portfolio/browser
 ```
 
-## Building
-
-To build the project run:
+## Deploy (GitHub Pages)
 
 ```bash
-ng build
+npm run deploy     # builds and publishes to the gh-pages branch
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
-
-

@@ -1,0 +1,23 @@
+<section class="impact" aria-labelledby="impact-title">
+  <div class="container">
+    <div class="panel" appReveal>
+      <div class="glow" aria-hidden="true"></div>
+
+      <div class="panel-head">
+        <span class="eyebrow">Impact</span>
+        <h2 id="impact-title">Design decisions, <span class="gradient-text">measured.</span></h2>
+        <p>Good UX shows up in the numbers. A few outcomes from recent work.</p>
+      </div>
+
+      <ul class="metrics">
+        @for (m of metrics; track m.label; let i = $index) {
+          <li class="metric" appReveal [revealDelay]="i * 70">
+            <span class="value">{{ m.prefix ?? '' }}<span [appCountUp]="m.value">{{ m.value }}</span>{{ m.suffix }}</span>
+            <span class="label">{{ m.label }}</span>
+            <span class="context">{{ m.context }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>

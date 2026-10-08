@@ -1,0 +1,181 @@
+<section class="section sandbox" id="sandbox" aria-labelledby="sandbox-title">
+  <div class="container">
+    <div class="section-head center" appReveal>
+      <span class="eyebrow">Sandbox</span>
+      <h2 id="sandbox-title">Don&apos;t take my word for it — <span class="gradient-text">build a screen.</span></h2>
+      <p>
+        Drag components into the phone, reorder them, or drag them back out to remove. Same design tokens as this site
+        — switch the accent in the hero and watch it follow.
+      </p>
+    </div>
+
+    <div class="studio" appReveal [revealDelay]="120">
+      <!-- Component palette -->
+      <div class="card palette">
+        <div class="palette-head">
+          <h3>Components</h3>
+          <span class="count">{{ canvas().length }} / {{ max }}</span>
+        </div>
+
+        <ul
+          class="palette-list"
+          id="palette"
+          cdkDropList
+          [cdkDropListData]="palette"
+          [cdkDropListConnectedTo]="['canvas']"
+          cdkDropListSortingDisabled
+          cdkDropListHasAnchor
+          (cdkDropListDropped)="dropOnPalette($event)"
+        >
+          @for (block of palette; track block.type) {
+            <li class="palette-item" cdkDrag [cdkDragData]="block.type" [cdkDragDisabled]="full()" [cdkDragStartDelay]="touchDelay">
+              <span class="grip" aria-hidden="true"><i class="fa-solid fa-grip-vertical"></i></span>
+              <span class="p-icon"><i [class]="block.icon" aria-hidden="true"></i></span>
+              <span class="p-label">{{ block.label }}</span>
+              <button
+                type="button"
+                class="add"
+                (click)="add(block.type)"
+                [disabled]="full()"
+                [attr.aria-label]="'Add ' + block.label"
+              >
+                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              </button>
+
+              <div *cdkDragPreview class="drag-preview">
+                <ng-container [ngTemplateOutlet]="blockTpl" [ngTemplateOutletContext]="{ $implicit: block.type }" />
+              </div>
+              <!-- Faded copy while it stays in the palette (anchor); a drop slot inside the phone -->
+              <div *cdkDragPlaceholder class="slot ghost">
+                <span class="p-icon"><i [class]="block.icon" aria-hidden="true"></i></span>
+                <span class="p-label">{{ block.label }}</span>
+              </div>
+            </li>
+          }
+        </ul>
+
+        <p class="palette-tip">
+          <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
+          <span>Drag &amp; drop, or use <b>+</b> to add with the keyboard.</span>
+        </p>
+      </div>
+
+      <!-- Phone canvas -->
+      <div class="phone-wrap">
+        <div class="phone">
+          <span class="notch" aria-hidden="true"></span>
+          <div class="status-bar" aria-hidden="true">
+            <span>9:41</span>
+            <span><i class="fa-solid fa-signal"></i> <i class="fa-solid fa-wifi"></i> <i class="fa-solid fa-battery-full"></i></span>
+          </div>
+
+          <ul
+            class="screen"
+            id="canvas"
+            cdkDropList
+            [cdkDropListData]="canvas()"
+            [cdkDropListConnectedTo]="['palette']"
+            [cdkDropListEnterPredicate]="canEnter"
+            (cdkDropListDropped)="dropOnCanvas($event)"
+            aria-label="Phone screen"
+          >
+            @for (item of canvas(); track item.uid) {
+              <li class="canvas-item" cdkDrag [cdkDragData]="item" [cdkDragStartDelay]="touchDelay">
+                <ng-container [ngTemplateOutlet]="blockTpl" [ngTemplateOutletContext]="{ $implicit: item.type }" />
+                <button
+                  type="button"
+                  class="remove"
+                  (click)="remove(item)"
+                  [attr.aria-label]="'Remove ' + labelOf(item.type)"
+                >
+                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+                <div *cdkDragPlaceholder class="slot"></div>
+              </li>
+            } @empty {
+              <li class="empty">
+                <i class="fa-regular fa-hand-pointer" aria-hidden="true"></i>
+                Drop components here
+              </li>
+            }
+          </ul>
+          <span class="home-bar" aria-hidden="true"></span>
+        </div>
+
+        <div class="controls">
+          <button type="button" class="ctrl" (click)="reset()">
+            <i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Reset
+          </button>
+          <button type="button" class="ctrl" (click)="clear()">
+            <i class="fa-regular fa-trash-can" aria-hidden="true"></i> Clear
+          </button>
+        </div>
+
+        @if (canvas().length >= 5) {
+          <p class="cheer">
+            <span aria-hidden="true">🎉</span> Now that&apos;s a screen. Want the real thing?
+            <a href="#contact" (click)="goContact($event)">Let&apos;s talk →</a>
+          </p>
+        }
+      </div>
+    </div>
+
+    <p class="sr-only" aria-live="polite">{{ announcement() }}</p>
+  </div>
+</section>
+
+<!-- Mini UI blocks, shared by the phone and the drag preview -->
+<ng-template #blockTpl let-type>
+  @switch (type) {
+    @case ('header') {
+      <div class="b b-header">
+        <div>
+          <small>Good morning</small>
+          <b>Yellareswari 👋</b>
+        </div>
+        <span class="avatar">YB</span>
+      </div>
+    }
+    @case ('search') {
+      <div class="b b-search"><i class="fa-solid fa-magnifying-glass"></i> Search doctors, clinics…</div>
+    }
+    @case ('tabs') {
+      <div class="b b-tabs"><span class="on">Upcoming</span><span>Past</span><span>Cancelled</span></div>
+    }
+    @case ('stats') {
+      <div class="b b-stats">
+        <span><b>12</b><small>Appointments</small></span>
+        <span><b>3</b><small>New messages</small></span>
+      </div>
+    }
+    @case ('appointment') {
+      <div class="b b-appt">
+        <span class="date"><b>14</b><small>OCT</small></span>
+        <div>
+          <b>Dr. Priya Sharma</b>
+          <small>Cardiology · 10:30 AM</small>
+        </div>
+        <span class="pill">Confirmed</span>
+      </div>
+    }
+    @case ('chart') {
+      <div class="b b-chart">
+        <small>Weekly activity</small>
+        <div class="bars">
+          @for (h of bars; track $index) {
+            <span [style.height.%]="h"></span>
+          }
+        </div>
+      </div>
+    }
+    @case ('toggle') {
+      <div class="b b-toggle">
+        <div><b>Reminders</b><small>1 hour before visits</small></div>
+        <span class="switch"></span>
+      </div>
+    }
+    @case ('button') {
+      <div class="b b-button">Book appointment</div>
+    }
+  }
+</ng-template>

@@ -1,122 +1,146 @@
-<section class="hero" data-aos="fade-up">
+<section class="hero" id="top">
+  <div class="aurora" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+  </div>
+  <div class="bg-grid" aria-hidden="true"></div>
 
-    <div class="container hero-wrapper">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="status" appReveal>
+        <span class="pulse" aria-hidden="true"></span>
+        Open to Senior Frontend, Full Stack &amp; UI/UX roles
+      </span>
 
-        <div class="hero-left">
+      <p class="hello" appReveal [revealDelay]="80">Hi, I&apos;m {{ profile.name }} —</p>
 
-            <div class="hero-badges">
+      <h1 class="headline">
+        @for (word of headline; track $index) {
+          <span class="word" [style.--i]="$index"
+            ><span class="word-inner" [class.gradient-text]="word.accent">{{ word.text }}</span></span
+          >{{ ' ' }}
+        }
+      </h1>
 
-                <span>Open to Opportunities ✨</span>
+      <p class="lede" appReveal [revealDelay]="240">
+        Senior Full Stack Engineer &amp; UI/UX Developer with <strong>5+ years</strong> turning Figma designs and
+        business goals into accessible, scalable products for <strong>healthcare, e-commerce, Salesforce</strong> and
+        <strong>banking</strong> clients across the UK &amp; US.
+      </p>
 
-            </div>
+      <div class="cta-row" appReveal [revealDelay]="320">
+        <a class="btn btn-primary" href="#work" appMagnetic (click)="scrollTo($event, 'work')">
+          View case studies <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn-ghost" [href]="profile.resume" target="_blank" rel="noopener" appMagnetic>
+          <i class="fa-regular fa-file-lines" aria-hidden="true"></i> Resume
+        </a>
+      </div>
 
-            <span class="hello">
-                HELLO 👋
-            </span>
-
-            <h1>
-                I'm
-                <span class="gradient-text">
-                    Yellareswari
-                </span>
-            </h1>
-
-            <h1 class="surname">
-                Batta.
-            </h1>
-
-            <h2>
-                Senior Frontend Engineer
-                <br>
-                Angular • UI/UX • Product Design
-            </h2>
-
-            <div class="actions">
-
-                <button class="primary-btn" (click)="scrollToProjects()">
-
-                    View Projects →
-
-                </button>
-
-                <a href="Yellareswari_Batta_Resume.pdf" target="_blank" class="secondary-btn">
-
-                    View Resume ↗
-
-                </a>
-
-            </div>
-
-        </div>
-
-        <div class="hero-right">
-
-            <div class="blob orange"></div>
-
-            <div class="blob pink"></div>
-
-            <div class="blob blue"></div>
-
-            <div class="workspace">
-
-                <div class="browser">
-
-                    <div class="browser-header">
-
-                        <span></span>
-                        <span></span>
-                        <span></span>
-
-                    </div>
-
-                    <div class="browser-content">
-
-                        <div class="sidebar"></div>
-
-                        <div class="content">
-
-                            <div class="graph"></div>
-
-                            <div class="cards">
-
-                                <div></div>
-
-                                <div></div>
-
-                                <div></div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="chip angular">
-                    Angular 20
-                </div>
-
-                <div class="chip figma">
-                    Figma
-                </div>
-
-                <div class="chip ts">
-                    RxJS
-                </div>
-
-                <div class="chip ngrx">
-                    NgRx
-                </div>
-
-                <div class="chip healthcare">
-                    Healthcare
-                </div>
-
-            </div>
-
-        </div>
-
+      <div class="social" appReveal [revealDelay]="400">
+        <a [href]="profile.linkedin" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+        </a>
+        <a [href]="profile.github" target="_blank" rel="noopener" aria-label="GitHub">
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
+        </a>
+        <a [href]="'mailto:' + profile.email" aria-label="Email">
+          <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+        </a>
+        <span class="loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> {{ profile.location }}</span>
+      </div>
     </div>
 
+    <div class="hero-visual" appReveal [revealDelay]="200">
+      <div class="playground card" appSpotlight [appTilt]="6">
+        <div class="pg-bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="pg-file">design-system / tokens</span>
+          <span class="live"><span class="pulse" aria-hidden="true"></span>Live</span>
+        </div>
+
+        <div class="pg-body">
+          <div class="pg-block">
+            <div class="pg-label">
+              <code>--accent</code>
+              <span class="hint">Try me <i class="fa-solid fa-hand-pointer" aria-hidden="true"></i></span>
+            </div>
+            <div class="swatches" role="radiogroup" aria-label="Site accent colour">
+              @for (a of accents; track a.id) {
+                <button
+                  type="button"
+                  role="radio"
+                  class="swatch"
+                  [style.background]="a.swatch"
+                  [attr.aria-checked]="theme.accent() === a.id"
+                  [attr.aria-label]="a.label"
+                  (click)="theme.accent.set(a.id)"
+                ></button>
+              }
+            </div>
+          </div>
+
+          <div class="pg-block type">
+            <div class="pg-label"><code>--font-display</code></div>
+            <div class="type-scale">
+              <span class="aa">Aa</span>
+              <div class="type-rows">
+                <span><b>Display</b> 64 / 700</span>
+                <span><b>Heading</b> 32 / 700</span>
+                <span><b>Body</b> 16 / 400</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pg-block">
+            <div class="pg-label"><code>components</code></div>
+            <div class="components">
+              <span class="demo-btn primary">Book appointment</span>
+              <span class="demo-btn ghost">Cancel</span>
+              <button
+                type="button"
+                class="switch"
+                role="switch"
+                [attr.aria-checked]="theme.theme() === 'dark'"
+                aria-label="Dark mode"
+                (click)="theme.toggleTheme()"
+              >
+                <span class="knob"></span>
+              </button>
+            </div>
+            <div class="field">
+              <span class="field-label">Full name</span>
+              <span class="field-input">Yellareswari Batta<span class="caret" aria-hidden="true"></span></span>
+            </div>
+          </div>
+
+          <div class="checks">
+            <span><i class="fa-solid fa-circle-check" aria-hidden="true"></i> WCAG AA contrast</span>
+            <span><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Keyboard ready</span>
+            <span><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Responsive</span>
+          </div>
+        </div>
+      </div>
+
+      @for (chip of chips; track chip.label) {
+        <span class="float-chip" [class]="chip.cls" cdkDrag cdkDragBoundary=".hero">
+          <i class="fa-solid fa-grip-vertical grip" aria-hidden="true"></i>
+          <i [class]="chip.icon" aria-hidden="true"></i> {{ chip.label }}
+        </span>
+      }
+      <span class="drag-hint" aria-hidden="true">↖ psst — drag the chips</span>
+    </div>
+  </div>
+
+  <div class="marquee" aria-label="Core skills">
+    <div class="marquee-track">
+      @for (round of [0, 1]; track round) {
+        <ul class="marquee-group" [attr.aria-hidden]="round === 1 ? 'true' : null">
+          @for (item of marquee; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
 </section>

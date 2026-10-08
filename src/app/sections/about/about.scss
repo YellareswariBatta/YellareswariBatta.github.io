@@ -1,317 +1,249 @@
-.about {
-  padding: 140px 0;
-}
-
-.about-header h2 {
-
-  font-size: 4.5rem;
-
-  line-height: 1;
-
-  margin-top: 20px;
-
-  max-width: 900px;
-}
-
-.about-grid {
-
-  margin-top: 70px;
-
+.intro {
   display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(24px, 5vw, 72px);
+  align-items: end;
+  margin-bottom: clamp(48px, 6vw, 72px);
 
-  grid-template-columns: 1.5fr 1fr;
-
-  gap: 24px;
+  .section-head {
+    margin-bottom: 0;
+  }
 }
 
-.about-card {
+.intro-copy {
+  display: grid;
+  gap: 16px;
+  font-size: 1.05rem;
+  color: var(--muted);
 
-  background: white;
-
-  border-radius: 40px;
-
-  padding: 40px;
-
-  position: relative;
-
-  overflow: hidden;
-
-  transition: all .4s ease;
-
-  box-shadow:
-    0 25px 80px rgba(0,0,0,.06);
+  strong {
+    color: var(--text);
+    font-weight: 600;
+  }
 }
 
-.about-card:hover {
-
-  transform:
-    translateY(-10px);
-
-  box-shadow:
-    0 35px 100px rgba(0,0,0,.1);
+.bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
-.hero-card {
-
-  background:
-    linear-gradient(
-      135deg,
-      #ff8c42,
-      #ff5e7d
-    );
-
-  color: white;
-
-  min-height: 350px;
-}
-
-.big-number {
-
-  font-size: 8rem;
-
-  line-height: 1;
-
-  font-weight: 800;
-}
-
-.hero-card h3 {
-
-  margin-top: 10px;
-
-  font-size: 2rem;
-}
-
-.hero-card p {
-
-  margin-top: 20px;
-
-  line-height: 1.8;
-
-  max-width: 450px;
-}
-
-.experience-badges {
-
-  margin-top: 30px;
-
+.tile {
   display: flex;
-
-  gap: 10px;
-
-  flex-wrap: wrap;
-}
-
-.experience-badges span {
-
-  padding: 10px 16px;
-
-  border-radius: 40px;
-
-  background:
-    rgba(255,255,255,.2);
-
-  backdrop-filter: blur(10px);
-}
-
-.skill-card {
-
-  display: flex;
-
   flex-direction: column;
+  gap: 14px;
+  padding: clamp(24px, 3vw, 32px);
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out), border-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-border);
+  }
+
+  &.wide {
+    grid-column: span 2;
+  }
+
+  h3 {
+    font-size: 1.45rem;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    color: var(--muted);
+    font-size: 0.98rem;
+  }
+
+  .tag-list {
+    margin-top: auto;
+    padding-top: 6px;
+  }
 }
 
-.tech-stack {
+.tile-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  color: var(--accent-ink);
+  font-size: 1.15rem;
+}
 
+/* Figma → code handoff illustration */
+.handoff {
   display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
+  border: 1px dashed var(--border-strong);
+}
 
-  flex-wrap: wrap;
-
+.frame {
+  position: relative;
+  display: grid;
   gap: 10px;
+  justify-items: start;
+  padding: 14px;
+  border: 1.5px solid var(--accent-a);
+  border-radius: 6px;
+  background: var(--surface);
 }
 
-.pill {
-
-  padding: 10px 18px;
-
-  border-radius: 50px;
-
-  background: #f3f4f6;
+.frame-name {
+  position: absolute;
+  top: -22px;
+  left: -1px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+  white-space: nowrap;
 }
 
-.skill-card h3 {
-
-  margin-top: 30px;
-
-  font-size: 2rem;
+.frame-btn {
+  padding: 10px 22px;
+  border-radius: 12px;
+  background: var(--accent-gradient);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
-.skill-card p {
-
-  margin-top: 15px;
-
-  color: #666;
-
-  line-height: 1.7;
+.spec {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--muted);
 }
 
-.design-card {
-
-  min-height: 300px;
+.arrow {
+  color: var(--accent-a);
+  font-size: 1.3rem;
 }
 
-.circle {
-
-  width: 90px;
-  height: 90px;
-
-  border-radius: 50%;
-
-  background:
-    linear-gradient(
-      135deg,
-      #ff8c42,
-      #ff5e7d
-    );
+.code {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #0f0f13;
+  color: #e4e4e7;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  overflow-x: auto;
 }
 
-.design-card h3 {
-
-  margin-top: 30px;
-
-  font-size: 2rem;
+.c-tag {
+  color: #f472b6;
 }
 
-.design-card p {
-
-  margin-top: 15px;
-
-  line-height: 1.8;
+.c-attr {
+  color: #93c5fd;
 }
 
-.ux-tags {
+.c-str {
+  color: #86efac;
+}
 
-  margin-top: 25px;
+/* Education */
+.edu {
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
 
+.edu-body {
+  flex: 1;
   display: flex;
-
-  gap: 10px;
-
-  flex-wrap: wrap;
-}
-
-.ux-tags span {
-
-  background: #f3f4f6;
-
-  padding: 10px 16px;
-
-  border-radius: 40px;
-}
-
-.domain-card {
-
-  background:
-    linear-gradient(
-      135deg,
-      #171717,
-      #2a2a2a
-    );
-
-  color: white;
-}
-
-.domain-card h3 {
-
-  font-size: 2rem;
-}
-
-.domains {
-
-  margin-top: 25px;
-
-  display: flex;
-
-  gap: 10px;
-
-  flex-wrap: wrap;
-}
-
-.domains span {
-
-  padding: 12px 18px;
-
-  border-radius: 40px;
-
-  background:
-    rgba(255,255,255,.12);
-}
-
-.stats-row {
-
-  margin-top: 40px;
-
-  display: flex;
-
+  align-items: center;
   justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  h3 {
+    font-size: 1.25rem;
+  }
 }
 
-.stats-row strong {
-
-  display: block;
-
-  font-size: 2rem;
+.edu-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.stats-row span {
+.gpa {
+  font-size: 0.9rem;
+  color: var(--muted);
 
-  opacity: .8;
+  b {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--text);
+    margin-right: 4px;
+  }
 }
 
-@media (max-width: 992px) {
-
-  .about-grid {
+@media (max-width: 960px) {
+  .intro {
     grid-template-columns: 1fr;
   }
 
-  .about-header h2 {
-    font-size: 3rem;
+  .bento {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .big-number {
-    font-size: 5rem;
+  .tile.edu {
+    grid-column: auto;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
-.expertise-grid {
+@media (max-width: 640px) {
+  .bento {
+    grid-template-columns: 1fr;
+  }
 
-  margin-top: 30px;
+  .tile.wide {
+    grid-column: auto;
+  }
 
-  display: grid;
+  .handoff {
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 34px;
+  }
 
-  grid-template-columns: repeat(2, 1fr);
+  .arrow {
+    transform: rotate(90deg);
+    align-self: center;
+  }
 
-  gap: 15px;
+  .edu {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
-.expertise-item {
-
-  padding: 18px;
-
-  border-radius: 20px;
-
-  background: #f8fafc;
+.tile-icon {
+  transition: transform 0.4s var(--ease-spring), background 0.3s ease, color 0.3s ease;
 }
 
-.expertise-item strong {
-
-  display: block;
-
-  font-size: 1rem;
+.tile:hover .tile-icon {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: #fff;
+  animation: wiggle 0.6s ease;
 }
 
-.expertise-item span {
-
-  font-size: .85rem;
-
-  color: #666;
+@keyframes wiggle {
+  25% { transform: rotate(-12deg) scale(1.1); }
+  50% { transform: rotate(10deg) scale(1.1); }
+  75% { transform: rotate(-4deg); }
 }

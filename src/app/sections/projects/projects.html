@@ -1,199 +1,173 @@
-<section class="projects" id="projects">
-
-    <div class="container">
-
-        <span class="section-tag">
-            Featured Work
-        </span>
-
-        <h2>
-            Products I've Helped
-            Build & Scale
-        </h2>
-
-        <div class="project healthcare" data-aos="fade-right">
-
-            <div class="project-info">
-
-                <span class="project-number">
-                    01
-                </span>
-
-                <h3>
-                    Healthcare Platform
-                </h3>
-
-                <p>
-                    Developed patient onboarding, healthcare workflows
-                    and reusable Angular components that improved
-                    application maintainability and user experience.
-                </p>
-
-
-                <div class="project-meta">
-
-                    <span>
-                        Role: Senior Frontend Engineer
-                    </span>
-
-                    <span>
-                        Domain: Healthcare
-                    </span>
-
-                </div>
-
-                 <div class="achievement">
-    ✨ Reusable Architecture
-  </div>
-
-                <div class="tech-stack">
-
-                    <span>Angular</span>
-                    <span>RxJS</span>
-                    <span>NgRx</span>
-                    <span>SCSS</span>
-
-                </div>
-
-            </div>
-
-            <div class="project-visual">
-
-                <div class="dashboard healthcare-ui">
-
-                    <div class="top"></div>
-
-                    <div class="middle">
-
-                        <div></div>
-                        <div></div>
-
-                    </div>
-
-                    <div class="bottom"></div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="project banking reverse" data-aos="fade-left">
-
-            <div class="project-info">
-
-                <span class="project-number">
-                    02
-                </span>
-
-                <h3>
-                    Banking Workflow System
-                </h3>
-
-                <p>
-                    Built secure banking workflows, transaction screens
-                    and integration modules supporting enterprise
-                    financial operations and compliance requirements.
-                </p>
-
-                <div class="project-meta">
-
-                    <span>
-                        Role: Frontend Engineer
-                    </span>
-
-                    <span>
-                        Domain: Banking
-                    </span>
-
-                </div>
-
-                <div class="achievement">
-  ✨ Secure Financial Workflows
-</div>
-
-                <div class="tech-stack">
-
-                    <span>Angular</span>
-                    <span>TypeScript</span>
-                    <span>REST APIs</span>
-
-                </div>
-
-            </div>
-
-            <div class="project-visual">
-
-                <div class="dashboard banking-ui">
-
-                    <div class="wallet"></div>
-
-                    <div class="transactions"></div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="project ecommerce" data-aos="fade-right">
-
-            <div class="project-info">
-
-                <span class="project-number">
-                    03
-                </span>
-
-                <h3>
-                    E-Commerce Platform
-                </h3>
-
-                <p>
-                    Designed and developed responsive customer journeys,
-                    product discovery experiences and analytics dashboards
-                    focused on conversion and usability.
-                </p>
-
-                <div class="project-meta">
-
-                    <span>
-                        Role: Frontend Engineer
-                    </span>
-
-                    <span>
-                        Domain: E-Commerce
-                    </span>
-
-                </div>
-
-                <div class="achievement">
-  ✨ Conversion Focused UX
-</div>
-
-                <div class="tech-stack">
-
-                    <span>Angular</span>
-                    <span>Bootstrap</span>
-                    <span>UX Design</span>
-
-                </div>
-
-            </div>
-
-            <div class="project-visual">
-
-                <div class="dashboard ecommerce-ui">
-
-                    <div class="products"></div>
-
-                    <div class="sales"></div>
-
-                </div>
-
-            </div>
-
-        </div>
-
+<section class="section work" id="work" aria-labelledby="work-title">
+  <div class="container">
+    <div class="section-head" appReveal>
+      <span class="eyebrow">Selected work</span>
+      <h2 id="work-title">Case studies in <span class="gradient-text">usable, scalable</span> products.</h2>
+      <p>
+        Enterprise products for UK &amp; US clients. The previews are illustrative recreations of the kinds of
+        interfaces I designed and built.
+      </p>
     </div>
 
+    <div class="studies">
+      @for (s of studies; track s.id; let i = $index) {
+        <article class="card study" [class.flip]="i % 2 === 1" appReveal [attr.aria-labelledby]="'study-' + s.id">
+          <div class="study-info">
+            <div class="study-meta">
+              <span class="num">{{ (i + 1).toString().padStart(2, '0') }}</span>
+              <span class="client">{{ s.client }}</span>
+              <span class="period">{{ s.period }}</span>
+            </div>
+
+            <h3 [id]="'study-' + s.id">{{ s.title }}</h3>
+            <p class="summary">{{ s.summary }}</p>
+
+            <div class="block">
+              <h4>The challenge</h4>
+              <p>{{ s.challenge }}</p>
+            </div>
+
+            <div class="block">
+              <h4>What I did</h4>
+              <ul class="approach">
+                @for (step of s.approach; track step) {
+                  <li><i class="fa-solid fa-check" aria-hidden="true"></i>{{ step }}</li>
+                }
+              </ul>
+            </div>
+
+            <div class="impact">
+              @for (r of s.impact; track r.label) {
+                <div class="result">
+                  <span class="result-value">{{ r.value }}</span>
+                  <span class="result-label">{{ r.label }}</span>
+                </div>
+              }
+            </div>
+
+            <div class="tag-list">
+              <span class="tag role"><i class="fa-solid fa-user-pen" aria-hidden="true"></i>{{ s.role }}</span>
+              @for (t of s.stack; track t) {
+                <span class="tag">{{ t }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="study-visual" appSpotlight [appTilt]="7" aria-hidden="true">
+            @switch (s.visual) {
+              @case ('healthcare') {
+                <div class="mock app">
+                  <div class="app-side">
+                    <span class="logo"></span>
+                    <i class="fa-solid fa-house"></i>
+                    <i class="fa-regular fa-calendar active"></i>
+                    <i class="fa-solid fa-user-group"></i>
+                    <i class="fa-regular fa-file-lines"></i>
+                  </div>
+                  <div class="app-main">
+                    <div class="app-head">
+                      <b>Appointments</b>
+                      <span class="pill-btn">+ New</span>
+                    </div>
+                    <div class="filters">
+                      <span class="on">All clinics</span><span>Today</span><span>Follow-ups</span>
+                    </div>
+                    <div class="calendar">
+                      @for (d of weekDays; track d) {
+                        <span class="day">{{ d }}</span>
+                      }
+                      <span class="ev e1">Consult<br /><small>09:00</small></span>
+                      <span class="ev e2">Review<br /><small>10:30</small></span>
+                      <span class="ev e3">Check-up<br /><small>11:00</small></span>
+                      <span class="ev e4">Therapy<br /><small>13:30</small></span>
+                      <span class="ev e5">Follow-up<br /><small>15:00</small></span>
+                    </div>
+                    <div class="patient">
+                      <span class="avatar">YB</span>
+                      <div><b>Yellareswari Batta</b><small>Next: Tue 10:30</small></div>
+                      <span class="status">Confirmed</span>
+                    </div>
+                  </div>
+                </div>
+              }
+              @case ('design-system') {
+                <div class="mock ds">
+                  <div class="ds-row tokens">
+                    <span style="--t: 100%"></span><span style="--t: 75%"></span><span style="--t: 50%"></span>
+                    <span style="--t: 25%"></span><span style="--t: 10%"></span>
+                  </div>
+                  <div class="ds-row">
+                    <span class="ds-btn solid">Primary</span>
+                    <span class="ds-btn outline">Secondary</span>
+                    <span class="ds-btn text">Tertiary</span>
+                  </div>
+                  <div class="ds-row">
+                    <span class="ds-input">Search patients…</span>
+                    <span class="ds-toggle"></span>
+                  </div>
+                  <div class="ds-row">
+                    <span class="badge ok">Active</span><span class="badge warn">Pending</span>
+                    <span class="badge info">New</span><span class="badge">Draft</span>
+                  </div>
+                  <div class="ds-spacing">
+                    @for (n of [4, 8, 12, 16, 24, 32]; track n) {
+                      <span [style.width.px]="n * 2.2"><small>{{ n }}</small></span>
+                    }
+                  </div>
+                </div>
+              }
+              @case ('commerce') {
+                <div class="mock shop">
+                  <div class="shop-head">
+                    <b>New arrivals</b>
+                    <span class="cart"><i class="fa-solid fa-bag-shopping"></i><em>3</em></span>
+                  </div>
+                  <div class="products">
+                    @for (p of [1, 2, 3]; track p) {
+                      <div class="product">
+                        <span [class]="'img img-' + p"></span>
+                        <span class="line"></span>
+                        <span class="line short"></span>
+                        <b>$ {{ 39 + p * 20 }}.00</b>
+                      </div>
+                    }
+                  </div>
+                  <div class="chart">
+                    <span class="chart-label">Conversion · last 7 days</span>
+                    <div class="bars">
+                      @for (b of bars; track $index) {
+                        <span [style.height.%]="b"></span>
+                      }
+                    </div>
+                  </div>
+                </div>
+              }
+              @case ('banking') {
+                <div class="mock bank">
+                  <div class="bank-card">
+                    <span class="chip-icon"></span>
+                    <span class="bank-num">•••• •••• •••• 4821</span>
+                    <div class="bank-bal"><small>Available balance</small><b>$ 24,580.20</b></div>
+                  </div>
+                  <div class="tx-head"><b>Recent activity</b><small>View all</small></div>
+                  <ul class="tx">
+                    @for (t of transactions; track t.name) {
+                      <li>
+                        <span class="tx-icon" [class.pos]="t.positive">
+                          <i class="fa-solid" [class.fa-arrow-down]="t.positive" [class.fa-arrow-up]="!t.positive"></i>
+                        </span>
+                        <span class="tx-name">{{ t.name }}</span>
+                        <span class="tx-amt" [class.pos]="t.positive">{{ t.amount }}</span>
+                      </li>
+                    }
+                  </ul>
+                  <div class="secure"><i class="fa-solid fa-shield-halved"></i> Secured session</div>
+                </div>
+              }
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </div>
 </section>

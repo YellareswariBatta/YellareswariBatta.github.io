@@ -1,0 +1,25 @@
+<section class="section skills" id="skills" aria-labelledby="skills-title">
+  <div class="container">
+    <div class="section-head" appReveal>
+      <span class="eyebrow">Toolkit</span>
+      <h2 id="skills-title">The stack behind <span class="gradient-text">the craft.</span></h2>
+    </div>
+
+    <div class="grid">
+      @for (g of groups; track g.title; let i = $index) {
+        <article class="card group" appSpotlight appReveal [revealDelay]="(i % 3) * 80">
+          <header>
+            <span class="icon"><i [class]="g.icon" aria-hidden="true"></i></span>
+            <h3>{{ g.title }}</h3>
+            <span class="count">{{ g.items.length }}</span>
+          </header>
+          <ul class="tag-list">
+            @for (item of g.items; track item) {
+              <li class="tag">{{ item }}</li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+  </div>
+</section>

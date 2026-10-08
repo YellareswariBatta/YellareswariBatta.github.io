@@ -1,152 +1,67 @@
-<section class="about">
+<section class="section about" id="about" aria-labelledby="about-title">
+  <div class="container">
+    <div class="intro">
+      <div class="section-head" appReveal>
+        <span class="eyebrow">About</span>
+        <h2 id="about-title">Where design thinking meets <span class="gradient-text">engineering depth.</span></h2>
+      </div>
 
-    <div class="container">
-
-        <div class="about-header">
-
-            <span class="section-tag">
-                WHY ME
-            </span>
-
-            <h2>
-                More than a developer.
-                <br>
-                I build experiences.
-            </h2>
-
-        </div>
-
-        <div class="about-grid">
-
-            <!-- Experience Card -->
-
-            <div class="about-card hero-card" data-aos="fade-right">
-
-                <div class="big-number">5+</div>
-
-                <h3>Years of Experience</h3>
-
-                <p>
-                    Delivering enterprise applications across
-                    healthcare, banking and e-commerce.
-                </p>
-
-                <div class="experience-badges">
-
-                    <span>Healthcare</span>
-                    <span>Banking</span>
-                    <span>E-Commerce</span>
-
-                </div>
-
-            </div>
-
-            <!-- Architecture Card -->
-
-            <div class="about-card skill-card" data-aos="zoom-in">
-
-                <h3>Frontend Architecture</h3>
-
-                <p>
-                    Building scalable and maintainable enterprise applications.
-                </p>
-
-                <div class="expertise-grid">
-
-                    <div class="expertise-item">
-                        <strong>Angular</strong>
-                        <span>14 → 20</span>
-                    </div>
-
-                    <div class="expertise-item">
-                        <strong>RxJS</strong>
-                        <span>Reactive Programming</span>
-                    </div>
-
-                    <div class="expertise-item">
-                        <strong>NgRx</strong>
-                        <span>State Management</span>
-                    </div>
-
-                    <div class="expertise-item">
-                        <strong>TypeScript</strong>
-                        <span>Enterprise Development</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- UX Card -->
-
-            <div class="about-card design-card" data-aos="fade-up">
-
-                <div class="circle"></div>
-
-                <h3>UX & Product Thinking</h3>
-
-                <p>
-                    Creating intuitive user journeys,
-                    design systems and accessible experiences.
-                </p>
-
-                <div class="ux-tags">
-
-                    <span>Figma</span>
-                    <span>Accessibility</span>
-                    <span>Design Systems</span>
-                    <span>User Research</span>
-
-                </div>
-
-            </div>
-
-            <!-- Domain Card -->
-
-            <div class="about-card domain-card" data-aos="fade-left">
-
-                <h3>Domain Expertise</h3>
-
-                <div class="domains">
-
-                    <span>Healthcare</span>
-                    <span>Banking</span>
-                    <span>E-Commerce</span>
-
-                </div>
-
-                <div class="stats-row">
-
-                    <div>
-
-                        <strong>5+</strong>
-
-                        <span>Years</span>
-
-                    </div>
-
-                    <div>
-
-                        <strong>10+</strong>
-
-                        <span>Projects</span>
-
-                    </div>
-
-                    <div>
-
-                        <strong>100%</strong>
-
-                        <span>Responsive</span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
+      <div class="intro-copy" appReveal [revealDelay]="120">
+        <p>
+          I&apos;m a frontend specialist who designs as much as I build. I work in <strong>Angular (14–20, Signals)</strong>
+          and <strong>React</strong> with TypeScript, RxJS and NgRx — and I&apos;m full-stack capable with
+          <strong>Java / Spring Boot</strong> and MySQL.
+        </p>
+        <p>
+          I partner directly with clients from requirements and weekly demos through to production, and I lead framework
+          upgrades, testing practices and frontend modernisation along the way.
+        </p>
+      </div>
     </div>
 
+    <div class="bento">
+      @for (cap of capabilities; track cap.title; let i = $index) {
+        <article class="card tile" [class.wide]="i === 0" appSpotlight appReveal [revealDelay]="(i % 3) * 90">
+          <div class="tile-icon"><i [class]="cap.icon" aria-hidden="true"></i></div>
+          <h3>{{ cap.title }}</h3>
+          <p>{{ cap.description }}</p>
+          <div class="tag-list">
+            @for (tag of cap.tags; track tag) {
+              <span class="tag">{{ tag }}</span>
+            }
+          </div>
+
+          @if (i === 0) {
+            <div class="handoff" aria-hidden="true">
+              <div class="frame">
+                <span class="frame-name"><i class="fa-brands fa-figma"></i> Button / Primary</span>
+                <span class="frame-btn">Continue</span>
+                <span class="spec">h 48 · r 12 · 16/600</span>
+              </div>
+              <i class="fa-solid fa-arrow-right-long arrow"></i>
+              <pre class="code"><span class="c-tag">&lt;app-button</span>
+  <span class="c-attr">variant</span>=<span class="c-str">"primary"</span>
+  <span class="c-attr">size</span>=<span class="c-str">"lg"</span><span class="c-tag">&gt;</span>
+  Continue
+<span class="c-tag">&lt;/app-button&gt;</span></pre>
+            </div>
+          }
+        </article>
+      }
+
+      <article class="card tile edu wide" appSpotlight appReveal [revealDelay]="90">
+        <div class="tile-icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
+        <div class="edu-body">
+          <div>
+            <h3>{{ education.degree }}</h3>
+            <p>{{ education.school }} · {{ education.campus }}</p>
+          </div>
+          <div class="edu-meta">
+            <span class="gpa"><b>{{ education.gpa }}</b> GPA</span>
+            <span class="tag">{{ education.period }}</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
 </section>

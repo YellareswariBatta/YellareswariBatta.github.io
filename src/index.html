@@ -2,10 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>YellareswariPortfolio</title>
+  <title>Yellareswari Batta — Senior Full Stack Engineer &amp; UI/UX Developer</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="description" content="Yellareswari Batta — Senior Full Stack Engineer and UI/UX Developer. 5+ years designing and building accessible, scalable enterprise products with Angular, React, design systems and Spring Boot.">
+  <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0a0c" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Yellareswari Batta — Senior Full Stack Engineer & UI/UX Developer">
+  <meta property="og:description" content="Designing and engineering accessible, delightful enterprise products for healthcare, e-commerce, Salesforce and banking clients.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yellareswaribatta.github.io/">
+  <link rel="canonical" href="https://yellareswaribatta.github.io/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <script>
+    // Apply saved theme + accent before first paint to avoid a flash.
+    (function () {
+      var root = document.documentElement;
+      try {
+        var theme = localStorage.getItem('yb-theme');
+        var accent = localStorage.getItem('yb-accent');
+        if (!theme) theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        root.setAttribute('data-theme', theme);
+        root.setAttribute('data-accent', accent || 'coral');
+      } catch (e) {
+        root.setAttribute('data-theme', 'light');
+        root.setAttribute('data-accent', 'coral');
+      }
+    })();
+  </script>
 </head>
 <body>
   <app-root></app-root>

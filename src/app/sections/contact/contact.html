@@ -1,54 +1,50 @@
-<section class="contact">
-
+<section class="section contact" id="contact" aria-labelledby="contact-title">
   <div class="container">
+    <div class="panel" appReveal>
+      <div class="glow" aria-hidden="true"></div>
 
-    <div class="contact-card" data-aos="zoom-in-up">
-
-      <span class="section-tag">
-        Let's Connect
-      </span>
-
-      <h2>
-        Let's build something
-        amazing together.
-      </h2>
-
-      <p>
-        Open to Senior Frontend Engineer,
-        Angular Developer and Product Engineering opportunities.
+      <span class="eyebrow">Let&apos;s connect</span>
+      <h2 id="contact-title">Have a product that deserves <span class="gradient-text">great UX?</span></h2>
+      <p class="sub">
+        I&apos;m open to Senior Frontend, Full Stack and UI/UX Engineering roles. If you&apos;re building something people
+        should love to use, let&apos;s talk.
       </p>
 
-      <div class="contact-links">
+      <div class="email-row">
+        <a class="email" [href]="'mailto:' + profile.email">{{ profile.email }}</a>
+        <button class="copy" type="button" (click)="copyEmail()" [attr.aria-label]="copied() ? 'Email copied' : 'Copy email address'">
+          <i class="fa-regular" [class.fa-copy]="!copied()" [class.fa-circle-check]="copied()" aria-hidden="true"></i>
+          <span aria-live="polite">{{ copied() ? 'Copied!' : 'Copy' }}</span>
+        </button>
+      </div>
 
-  <div class="contact-item">
-    ☎ +91 9492576855
-  </div>
+      <div class="actions">
+        <a class="btn btn-light" appMagnetic [href]="'mailto:' + profile.email">
+          Say hello <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn-outline" appMagnetic [href]="profile.resume" target="_blank" rel="noopener">
+          <i class="fa-solid fa-download" aria-hidden="true"></i> Download resume
+        </a>
+      </div>
 
-  <div class="contact-item">
-    ✉ mail2yellareswari@gmail.com
-  </div>
-
-  <a href="https://github.com/YellareswariBatta" target="_blank">
-    ⚡ GitHub
-  </a>
-
-  <a href="https://linkedin.com/in/yellareswari-batta-b873a916b" target="_blank">
-    ◆ LinkedIn
-  </a>
-
-</div>
-
-     <a
-  class="resume-btn"
-  href="Yellareswari_Batta_Resume.pdf"
-  target="_blank">
-
-  Download Resume
-
-</a>
-
+      <ul class="channels">
+        <li>
+          <a [href]="profile.linkedin" target="_blank" rel="noopener">
+            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+        <li>
+          <a [href]="profile.github" target="_blank" rel="noopener">
+            <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+        <li>
+          <a [href]="profile.phoneHref"><i class="fa-solid fa-phone" aria-hidden="true"></i> {{ profile.phone }}</a>
+        </li>
+        <li>
+          <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> {{ profile.location }}</span>
+        </li>
+      </ul>
     </div>
-
   </div>
-
 </section>
