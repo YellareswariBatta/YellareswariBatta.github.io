@@ -1,6 +1,6 @@
 # Yellareswari Batta — Portfolio
 
-Personal portfolio of **Yellareswari Batta**, Senior Full Stack Engineer & UI/UX Developer.
+Personal portfolio of **Yellareswari Batta**, Senior Frontend Engineer & UI/UX Developer (Angular & React).
 
 **Live:** https://yellareswaribatta.github.io/
 

@@ -1,0 +1,346 @@
+.featured {
+  isolation: isolate;
+}
+
+.showcase {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+
+/* ---------- Browser frame ---------- */
+
+.stage {
+  position: relative;
+  padding: 24px 12px;
+}
+
+.browser {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg), 0 40px 80px -40px color-mix(in oklab, #6d28d9 55%, transparent);
+  transform: perspective(1400px) rotateX(var(--rx, 2deg)) rotateY(var(--ry, 4deg));
+  transition: transform 0.7s var(--ease-out);
+
+  &.tilting {
+    transition-duration: 0.15s;
+  }
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+
+  i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--surface-3);
+
+    &:nth-child(1) { background: #f87171; }
+    &:nth-child(2) { background: #fbbf24; }
+    &:nth-child(3) { background: #34d399; }
+  }
+}
+
+.url {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  i {
+    margin-right: 6px;
+    color: #16a34a;
+  }
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pulse {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    animation: ping 1.8s var(--ease-out) infinite;
+  }
+}
+
+@keyframes ping {
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 8px 12px 0;
+}
+
+.tab {
+  position: relative;
+  overflow: hidden;
+  padding: 8px 14px 10px;
+  border-radius: 10px 10px 0 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition: color 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    color: var(--text);
+  }
+
+  &[aria-selected='true'] {
+    color: var(--text);
+    background: var(--surface-2);
+  }
+}
+
+// Timer bar showing when the next screen will appear.
+.progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--accent-gradient);
+  transform-origin: left;
+  animation: tab-timer 4.5s linear both;
+
+  .stage:hover &,
+  .stage:focus-within & {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes tab-timer {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.screen {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  background: var(--surface-2);
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 0.7s var(--ease-out), transform 1.2s var(--ease-out);
+
+    &.on {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+.float {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface) 90%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+  font-size: 0.8rem;
+  font-weight: 600;
+  animation: bob 6s ease-in-out infinite;
+
+  i {
+    color: #7c3aed;
+  }
+}
+
+.f1 { top: 0; left: -12px; }
+.f2 { top: 46%; right: -18px; animation-delay: -2s; }
+.f3 { bottom: 0; left: 18%; animation-delay: -4s; }
+
+@keyframes bob {
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+/* ---------- Copy ---------- */
+
+.info {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in oklab, #61dafb 16%, transparent);
+  border: 1px solid color-mix(in oklab, #0891b2 30%, transparent);
+  color: #0e7490;
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  i {
+    animation: spin 8s linear infinite;
+  }
+}
+
+:host-context([data-theme='dark']) .kicker {
+  color: #67e8f9;
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.info h3 {
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.summary {
+  color: var(--muted);
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block: 4px 8px;
+}
+
+/* ---------- Feature grid ---------- */
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+.feature {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  transition: transform 0.4s var(--ease-out), border-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-border);
+
+    .f-icon {
+      rotate: -8deg;
+      scale: 1.08;
+    }
+  }
+
+  h4 {
+    font-size: 1.02rem;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    margin-top: 4px;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+}
+
+.f-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: #fff;
+  transition: rotate 0.4s var(--ease-spring), scale 0.4s var(--ease-spring);
+}
+
+@media (max-width: 1000px) {
+  .showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .browser {
+    transform: none;
+  }
+
+  .features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .float {
+    display: none;
+  }
+
+  .stage {
+    padding-inline: 0;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+}

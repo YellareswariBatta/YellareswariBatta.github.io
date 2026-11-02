@@ -6,9 +6,18 @@
       <span class="eyebrow">Let&apos;s connect</span>
       <h2 id="contact-title">Have a product that deserves <span class="gradient-text">great UX?</span></h2>
       <p class="sub">
-        I&apos;m open to Senior Frontend, Full Stack and UI/UX Engineering roles. If you&apos;re building something people
-        should love to use, let&apos;s talk.
+        Frontend, Angular, React and UI/UX roles — if you&apos;re building something people should love to use,
+        let&apos;s talk.
       </p>
+
+      <div class="roles">
+        <span class="roles-label">Roles I&apos;m open to</span>
+        <ul class="tag-list">
+          @for (role of roles; track role) {
+            <li class="role-chip">{{ role }}</li>
+          }
+        </ul>
+      </div>
 
       <div class="email-row">
         <a class="email" [href]="'mailto:' + profile.email">{{ profile.email }}</a>

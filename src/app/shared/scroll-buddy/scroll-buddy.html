@@ -1,0 +1,310 @@
+<div
+  class="buddy"
+  [attr.data-mode]="mode()"
+  [attr.data-pose]="pose()"
+  [attr.data-prop]="prop()"
+  [attr.data-facing]="facing()"
+  [attr.data-side]="side()"
+  [class.hopping]="hopping()"
+  [class.landing]="landing()"
+  [class.flipping]="flipping()"
+>
+  @if (menuOpen()) {
+    <div class="bubble menu" role="dialog" aria-label="Ask Yellareswari">
+      <p class="menu-title">{{ typed() }}<span class="caret" aria-hidden="true"></span></p>
+      <div class="chips">
+        @for (q of questions; track q.label) {
+          <button type="button" class="chip" (click)="ask(q)">{{ q.label }}</button>
+        }
+      </div>
+    </div>
+  } @else if (!moving() || dragging()) {
+    <div class="bubble" aria-hidden="true">
+      <p>{{ typed() }}<span class="caret"></span></p>
+      @if (!dragging() && !override()) {
+        <span class="ask-hint">Tap me to ask something</span>
+      }
+    </div>
+  }
+
+  @if (poof()) {
+    <span class="poof" aria-hidden="true" (animationend)="poof.set(false)">
+      @for (n of [1, 2, 3, 4, 5, 6, 7, 8]; track n) {
+        <i [style.--n]="n"></i>
+      }
+    </span>
+  }
+
+  <button class="hide" type="button" (click)="buddy.setVisible(false)" aria-label="Hide the scrolling guide">
+    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+  </button>
+
+  <!-- Tap/Enter opens the question menu; pointer drag picks her up. -->
+  <div
+    class="figure"
+    role="button"
+    tabindex="0"
+    aria-label="Ask Yellareswari a question"
+    [attr.aria-expanded]="menuOpen()"
+    (pointerdown)="onPointerDown($event)"
+    (pointermove)="onPointerMove($event)"
+    (pointerup)="onPointerUp($event)"
+    (pointercancel)="onPointerUp($event)"
+    (keydown.enter)="toggleMenu($event)"
+    (keydown.space)="$event.preventDefault(); toggleMenu($event)"
+    (animationend)="hopping.set(false); flipping.set(false)"
+  >
+    <svg class="girl" viewBox="-30 -30 180 240" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="yb-hair" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#2a170f" />
+          <stop offset="0.6" stop-color="#4a2a1a" />
+          <stop offset="1" stop-color="#7a4528" />
+        </linearGradient>
+        <radialGradient id="yb-skin" cx="0.45" cy="0.38" r="0.72">
+          <stop offset="0" stop-color="#f0bf98" />
+          <stop offset="1" stop-color="#cf8f66" />
+        </radialGradient>
+        <radialGradient id="yb-iris" cx="0.4" cy="0.35" r="0.75">
+          <stop offset="0" stop-color="#c98a3e" />
+          <stop offset="0.55" stop-color="#7a4a22" />
+          <stop offset="1" stop-color="#2e1a10" />
+        </radialGradient>
+        <radialGradient id="yb-blush">
+          <stop offset="0" stop-color="#f06d7e" stop-opacity="0.6" />
+          <stop offset="1" stop-color="#f06d7e" stop-opacity="0" />
+        </radialGradient>
+        <linearGradient id="yb-blazer" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" class="blz-a" />
+          <stop offset="1" class="blz-b" />
+        </linearGradient>
+        <clipPath id="yb-eye-l"><path d="M45.4 45.6 Q45.4 41.4 50 41.4 Q54.6 41.4 54.6 45.6 Q54.6 48.8 50 48.8 Q45.4 48.8 45.4 45.6 Z" /></clipPath>
+        <clipPath id="yb-eye-r"><path d="M65.4 45.6 Q65.4 41.4 70 41.4 Q74.6 41.4 74.6 45.6 Q74.6 48.8 70 48.8 Q65.4 48.8 65.4 45.6 Z" /></clipPath>
+      </defs>
+
+      <ellipse class="shadow" cx="60" cy="193" rx="30" ry="5" />
+
+      <g class="flip">
+        <!-- Speed lines (skateboard) -->
+        <g class="speed">
+          <path d="M-22 128 H8" /><path d="M-26 146 H4" /><path d="M-18 164 H12" />
+        </g>
+
+        <!-- Skateboard -->
+        <g class="board">
+          <path d="M26 186 Q28 192 34 192 H88 Q94 192 96 186" class="deck" />
+          <circle cx="38" cy="196" r="4" class="wheel" />
+          <circle cx="84" cy="196" r="4" class="wheel" />
+        </g>
+
+        <!-- AI drone (skills) -->
+        <g class="drone">
+          <ellipse cx="118" cy="-3" rx="10" ry="2" class="rotor" />
+          <path d="M118 -1 V6" class="antenna" />
+          <rect x="106" y="6" width="24" height="18" rx="6" class="drone-body" />
+          <rect x="110" y="11" width="16" height="8" rx="4" class="visor" />
+          <circle cx="115" cy="15" r="1.6" class="drone-eye" />
+          <circle cx="121" cy="15" r="1.6" class="drone-eye" />
+          <text x="118" y="38" class="drone-code">&lt;/&gt;</text>
+        </g>
+
+        <!-- Floating hearts (contact) -->
+        <g class="hearts">
+          @for (h of [0, 1, 2]; track h) {
+            <path
+              [attr.transform]="'translate(' + (94 + h * 12) + ' ' + (64 - h * 6) + ') scale(0.9)'"
+              [style.--h]="h"
+              d="M0 3 C0 -1 6 -1 6 3 C6 -1 12 -1 12 3 C12 7 6 10 6 12 C6 10 0 7 0 3 Z"
+            />
+          }
+        </g>
+
+        <g class="bob">
+          <!-- Loose chin-length bob, behind the face -->
+          <g class="hair-back">
+            <path
+              d="M30 40 C28 14 44 2 60 2 C76 2 92 14 90 40 C91 52 92.5 62 90 71 C87 76 81 77 76.5 74 L43.5 74 C39 77 33 76 30 71 C27.5 62 29 52 30 40 Z"
+              fill="url(#yb-hair)"
+            />
+          </g>
+
+          <!-- Legs: blue jeans and white sneakers with an accent stripe -->
+          <g class="leg leg-back">
+            <path d="M54 122 L53 177" stroke="#34507a" stroke-width="12" stroke-linecap="round" />
+            <path d="M43 183 Q44 177.5 52 177.5 Q58 177.5 61.5 182 Q61.5 185.5 56 185.5 H45 Q42 185.5 43 183 Z" fill="#f4f4f5" stroke="#a1a1aa" stroke-width="0.6" />
+            <path d="M43 184.4 H61" stroke="#d4d4d8" stroke-width="1.2" />
+            <path d="M48 181.2 L55 179.8" class="shoe-stripe" />
+          </g>
+          <g class="leg leg-front">
+            <path d="M66 122 L67 177" stroke="#3f5f8e" stroke-width="12" stroke-linecap="round" />
+            <path d="M66.4 128 L67 172" stroke="#6f8cb6" stroke-width="1" stroke-dasharray="2 2" />
+            <path d="M60.5 182 Q62 177.5 69 177.5 Q76 177.5 80 183 Q80 185.5 76 185.5 H63 Q60 185.5 60.5 182 Z" fill="#f4f4f5" stroke="#a1a1aa" stroke-width="0.6" />
+            <path d="M61 184.4 H79.5" stroke="#d4d4d8" stroke-width="1.2" />
+            <path d="M66 179.8 L73 181.2" class="shoe-stripe" />
+          </g>
+
+          <!-- Back arm: bomber sleeve with a ribbed cuff -->
+          <g class="arm arm-back">
+            <path d="M44 82 L38.6 112" class="sleeve" />
+            <path d="M38.4 113 L38 116" stroke="#1f2430" stroke-width="8.5" stroke-linecap="round" />
+            <circle cx="38" cy="119" r="4.6" fill="url(#yb-skin)" />
+          </g>
+
+          <!-- Neck, white tee and an open bomber jacket (accent colour) -->
+          <rect x="55" y="62" width="10" height="16" rx="4" fill="#cf8f66" />
+          <path d="M55 66 Q60 70 65 66 Z" fill="#a8693f" fill-opacity="0.45" />
+          <path d="M44 78 Q60 73 76 78 L78 124 Q60 128 42 124 Z" fill="#fafafa" />
+          <path d="M54 76.6 Q60 82 66 76.6" fill="none" stroke="#e4e4e7" stroke-width="1.6" />
+          <text x="60" y="103" class="tee-code">&lt;/&gt;</text>
+          <path d="M39 80 Q46 75 53 76.5 L53.5 126.5 Q45 127.5 36 124.5 Z" fill="url(#yb-blazer)" stroke="#000" stroke-opacity="0.22" stroke-width="0.8" />
+          <path d="M81 80 Q74 75 67 76.5 L66.5 126.5 Q75 127.5 84 124.5 Z" fill="url(#yb-blazer)" stroke="#000" stroke-opacity="0.22" stroke-width="0.8" />
+          <path d="M53 76.5 L53.5 126 M67 76.5 L66.5 126" stroke="#fff" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="1.6 1.4" />
+          <path d="M37 123.6 Q45 126.4 53.4 125.4 M66.6 125.4 Q75 126.4 83 123.6" fill="none" stroke="#1f2430" stroke-width="3.6" stroke-linecap="round" />
+          <path d="M45 76.6 Q53 74 58 76 M75 76.6 Q67 74 62 76" fill="none" stroke="#1f2430" stroke-width="3" stroke-linecap="round" />
+          <path d="M71 94 H79 V100 H71 Z" fill="#000" fill-opacity="0.14" />
+          <circle cx="75" cy="91" r="2.4" class="badge" />
+
+          <!-- Headphones resting around her neck -->
+          <path d="M45.5 79 Q60 90 74.5 79" fill="none" stroke="#1f2430" stroke-width="2.6" stroke-linecap="round" />
+          <rect x="41" y="71.5" width="8" height="11" rx="3.5" class="cup" />
+          <rect x="71" y="71.5" width="8" height="11" rx="3.5" class="cup" />
+
+          <!-- Laptop -->
+          <g class="laptop">
+            <rect x="40" y="96" width="40" height="26" rx="3" class="lid" />
+            <g class="lid-logo">
+              <ellipse cx="60" cy="109" rx="7" ry="2.6" />
+              <ellipse cx="60" cy="109" rx="7" ry="2.6" transform="rotate(60 60 109)" />
+              <ellipse cx="60" cy="109" rx="7" ry="2.6" transform="rotate(120 60 109)" />
+            </g>
+            <rect x="36" y="121" width="48" height="4" rx="2" class="base" />
+          </g>
+
+          <!-- Head -->
+          <g class="head">
+            <ellipse cx="35" cy="44" rx="3.3" ry="5.2" fill="#d39a72" />
+            <ellipse cx="85" cy="44" rx="3.3" ry="5.2" fill="#d39a72" />
+            <path
+              d="M35.5 38 C35.5 19 47 9.5 60 9.5 C73 9.5 84.5 19 84.5 38 C84.5 52 80.5 61 73.5 66.5 C68.5 70.5 64 72.5 60 72.5 C56 72.5 51.5 70.5 46.5 66.5 C39.5 61 35.5 52 35.5 38 Z"
+              fill="url(#yb-skin)"
+              stroke="#8a4b2c"
+              stroke-opacity="0.45"
+              stroke-width="0.9"
+            />
+
+            <!-- Light, high, softly arched brows -->
+            <path d="M43 34.2 Q49.5 30.2 56 32.4 M64 32.4 Q70.5 30.2 77 34.2" fill="none" stroke="#3b2016" stroke-width="1.5" stroke-linecap="round" />
+
+            <!-- Big round hazel eyes with two sparkles and a lash flick -->
+            <g class="eyes">
+              <path d="M45.4 45.6 Q45.4 41.4 50 41.4 Q54.6 41.4 54.6 45.6 Q54.6 48.8 50 48.8 Q45.4 48.8 45.4 45.6 Z" fill="#fff" />
+              <path d="M65.4 45.6 Q65.4 41.4 70 41.4 Q74.6 41.4 74.6 45.6 Q74.6 48.8 70 48.8 Q65.4 48.8 65.4 45.6 Z" fill="#fff" />
+              <g clip-path="url(#yb-eye-l)">
+                <g class="pupils">
+                  <circle cx="50.2" cy="45.4" r="3.3" fill="url(#yb-iris)" />
+                  <circle cx="50.2" cy="45.4" r="1.6" fill="#120a06" />
+                  <circle cx="51.4" cy="44" r="1.1" fill="#fff" />
+                </g>
+              </g>
+              <g clip-path="url(#yb-eye-r)">
+                <g class="pupils">
+                  <circle cx="70.2" cy="45.4" r="3.3" fill="url(#yb-iris)" />
+                  <circle cx="70.2" cy="45.4" r="1.6" fill="#120a06" />
+                  <circle cx="71.4" cy="44" r="1.1" fill="#fff" />
+                </g>
+              </g>
+              <path
+                d="M44.8 45.2 Q45 40.8 50 40.8 Q55 40.8 55.2 44.6 M64.8 44.6 Q65 40.8 70 40.8 Q75 40.8 75.2 45.2 M45.4 42.6 l-1.8 -1 M74.6 42.6 l1.8 -1"
+                fill="none"
+                stroke="#120a06"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+
+            <!-- Button nose, freckles, rosy cheeks, sweet smile -->
+            <path d="M58.6 53.4 Q60 55 61.4 53.4" fill="none" stroke="#a8693f" stroke-width="1.2" stroke-linecap="round" />
+            <g fill="#a8693f" fill-opacity="0.45">
+              <circle cx="46" cy="53.4" r="0.55" /><circle cx="48.4" cy="54.6" r="0.55" /><circle cx="45" cy="55.8" r="0.5" />
+              <circle cx="74" cy="53.4" r="0.55" /><circle cx="71.6" cy="54.6" r="0.55" /><circle cx="75" cy="55.8" r="0.5" />
+            </g>
+            <ellipse cx="44" cy="57" rx="6.4" ry="4" fill="url(#yb-blush)" />
+            <ellipse cx="76" cy="57" rx="6.4" ry="4" fill="url(#yb-blush)" />
+            <g class="smile">
+              <path d="M55 60 Q60 61 65 60 Q64 65.4 60 65.4 Q56 65.4 55 60 Z" fill="#a8344f" />
+              <ellipse cx="60" cy="63.9" rx="2.4" ry="1.1" fill="#e98a9a" />
+              <path d="M53.8 59.4 Q55 60.2 55 60 M66.2 59.4 Q65 60.2 65 60" fill="none" stroke="#8a4b2c" stroke-opacity="0.6" stroke-width="0.9" stroke-linecap="round" />
+            </g>
+            <ellipse cx="60" cy="62" rx="2.8" ry="2.4" class="mouth-o" />
+
+            <!-- Loose bob: side-swept fringe and soft sides that curl in at the jaw -->
+            <g fill="url(#yb-hair)">
+              <path d="M33 42 C30 16 45 4 61 4 C77 4 90 16 87 42 C85.5 34 83 28 79.5 25 C73 21 64 21 57 23 C50 25 44 28 40 32 C37 35 34.5 38 33 42 Z" />
+              <path d="M79.5 25 C70 19.5 57 20.5 48 26.5 C43.5 29.5 40.5 33 39 36.5 C45 30 53 27 61 26.6 C68 26.3 74.5 26.6 79.5 25 Z" />
+              <path class="strand" d="M33 36 C31 48 32.4 60 30.6 70 C33.6 74 38.4 73.4 41.4 70.4 C38.6 66 38.4 58 38.6 50 C38.8 44 38.4 39 37.4 34 Z" />
+              <path class="strand s-r" d="M87 36 C89 48 87.6 60 89.4 70 C86.4 74 81.6 73.4 78.6 70.4 C81.4 66 81.6 58 81.4 50 C81.2 44 81.6 39 82.6 34 Z" />
+            </g>
+            <path d="M48 9.5 Q60 5.4 74 9.6 M44 21 Q52 15 64 14.4 M33.6 50 Q33 60 32.6 68 M86.4 50 Q87 60 87.4 68" fill="none" stroke="#d29a6a" stroke-opacity="0.5" stroke-width="1.8" stroke-linecap="round" />
+          </g>
+
+          <!-- Angular & React orbiting her head (framework section) -->
+          <g class="orbit">
+            <g class="orbit-item ng">
+              <polygon points="10,33 22,37 20,54 10,60 0,54 -2,37" />
+              <text x="10" y="51">A</text>
+            </g>
+            <g class="orbit-item re">
+              <circle cx="110" cy="46" r="13" class="re-bg" />
+              <ellipse cx="110" cy="46" rx="10" ry="3.8" />
+              <ellipse cx="110" cy="46" rx="10" ry="3.8" transform="rotate(60 110 46)" />
+              <ellipse cx="110" cy="46" rx="10" ry="3.8" transform="rotate(120 110 46)" />
+              <circle cx="110" cy="46" r="2" class="re-dot" />
+            </g>
+          </g>
+
+          <!-- Front arm with smartwatch, carrying the section prop -->
+          <g class="arm arm-front">
+            <path d="M76 82 L81.4 112" class="sleeve" />
+            <path d="M81.6 113 L82 116" stroke="#1f2430" stroke-width="8.5" stroke-linecap="round" />
+            <circle cx="82" cy="119" r="4.5" fill="url(#yb-skin)" />
+            <rect x="79" y="114.6" width="6" height="5.4" rx="1.4" fill="#1f2430" />
+            <rect x="80" y="115.5" width="4" height="3.6" rx="0.8" class="watch-screen" />
+
+            <!-- Counter-rotated so props stay upright in the "hold" pose -->
+            <g transform="rotate(100 82 118)">
+              <g class="prop" data-p="pen">
+                <rect x="79" y="90" width="6" height="26" rx="1.5" class="pencil" />
+                <rect x="79" y="110" width="6" height="6" rx="1.5" class="eraser" />
+                <path d="M79 90 L82 82 L85 90 Z" class="pencil-tip" />
+                <path d="M82 70 l1.6 4 4 1.6 -4 1.6 -1.6 4 -1.6 -4 -4 -1.6 4 -1.6 Z" class="sparkle" />
+              </g>
+              <g class="prop" data-p="chart">
+                <rect x="68" y="88" width="30" height="26" rx="4" class="card" />
+                <rect x="73" y="102" width="5" height="8" rx="1" class="bar" />
+                <rect x="80.5" y="97" width="5" height="13" rx="1" class="bar" />
+                <rect x="88" y="92" width="5" height="18" rx="1" class="bar" />
+              </g>
+              <g class="prop" data-p="magnifier">
+                <path d="M80 110 L74 120" class="handle" />
+                <circle cx="86" cy="100" r="10" class="lens" />
+              </g>
+              <g class="prop" data-p="phone">
+                <rect x="73" y="86" width="18" height="30" rx="3.5" class="phone" />
+                <rect x="75.5" y="90" width="13" height="21" rx="1.5" class="phone-screen" />
+                <rect x="77.5" y="93" width="9" height="3" rx="1" class="phone-ui" />
+                <rect x="77.5" y="98" width="6" height="3" rx="1" class="phone-ui" />
+              </g>
+              <g class="prop" data-p="mug">
+                <path d="M88 104 q7 0 7 5 t-7 5" class="mug-handle" />
+                <rect x="71" y="99" width="18" height="18" rx="3" class="mug" />
+                <path d="M76 95 q-3 -4 0 -8 t0 -8" class="steam" />
+                <path d="M83 95 q-3 -4 0 -8 t0 -8" class="steam s2" />
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </div>
+</div>

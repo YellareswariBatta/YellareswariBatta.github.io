@@ -64,10 +64,22 @@ export interface SkillGroup {
   items: string[];
 }
 
+export interface FeaturedProject {
+  title: string;
+  kicker: string;
+  tagline: string;
+  summary: string;
+  live: string;
+  source: string;
+  shots: { id: string; label: string; src: string; alt: string }[];
+  features: { icon: string; title: string; text: string }[];
+  stack: string[];
+}
+
 export const PROFILE: Profile = {
   name: 'Yellareswari Batta',
   firstName: 'Yellareswari',
-  title: 'Senior Full Stack Engineer & UI/UX Developer',
+  title: 'Senior Frontend Engineer & UI/UX Developer · Angular & React',
   location: 'Hyderabad, India',
   email: 'mail2yellareswari@gmail.com',
   phone: '+91 94925 76855',
@@ -77,10 +89,25 @@ export const PROFILE: Profile = {
   resume: 'Yellareswari_Batta_Resume.pdf',
 };
 
+/** Roles I'm applying for — shown in the hero and contact sections. */
+export const OPEN_ROLES = [
+  'Senior Frontend Developer',
+  'Senior Angular Developer',
+  'Frontend Engineer',
+  'Senior UI Developer',
+  'Senior Product Engineer (Frontend)',
+  'UI Engineer',
+  'Frontend Developer – Angular/React',
+  'React Developer',
+  'React.js Developer',
+  'Software Engineer – Frontend',
+  'UI/UX Developer',
+];
+
 export const NAV_LINKS = [
   { id: 'about', label: 'About' },
+  { id: 'featured', label: 'React app' },
   { id: 'work', label: 'Work' },
-  { id: 'process', label: 'Process' },
   { id: 'sandbox', label: 'Play' },
   { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },
@@ -89,20 +116,20 @@ export const NAV_LINKS = [
 export const MARQUEE = [
   'Angular 20',
   'Signals',
-  'React',
+  'React 18',
   'TypeScript',
   'RxJS',
   'NgRx',
+  'React Hook Form',
+  'Zod',
+  'Material UI',
+  'Tailwind CSS',
   'Figma',
   'Design Systems',
-  'Design Tokens',
   'WCAG Accessibility',
-  'SCSS',
-  'Spring Boot',
-  'REST APIs',
-  'MySQL',
-  'Jasmine / Karma',
-  'Micro-interactions',
+  'Vite',
+  'Vitest',
+  'Prompt Engineering',
 ];
 
 export const METRICS: Metric[] = [
@@ -117,10 +144,10 @@ export const METRICS: Metric[] = [
 export const CAPABILITIES: Capability[] = [
   {
     icon: 'fa-solid fa-pen-ruler',
-    title: 'Figma to production UI',
+    title: 'UX design & Figma prototyping',
     description:
-      'I turn Figma designs and business requirements into responsive, user-centric interfaces — dynamic forms, calendars, filters and purposeful motion.',
-    tags: ['Figma', 'Prototyping', 'UX principles', 'Custom animations'],
+      'I design user flows, wireframes and interactive Figma prototypes, then build them into responsive, accessible production UI — dynamic forms, calendars, filters and purposeful motion.',
+    tags: ['Figma', 'Wireframes', 'User flows', 'Interactive prototypes', 'Custom animations'],
   },
   {
     icon: 'fa-solid fa-swatchbook',
@@ -137,16 +164,17 @@ export const CAPABILITIES: Capability[] = [
   },
   {
     icon: 'fa-solid fa-layer-group',
-    title: 'Frontend architecture',
+    title: 'Angular & React architecture',
     description:
-      'Scalable Angular (14 → 20, Signals) and React apps with RxJS, NgRx, lazy loading and clear API contracts.',
+      'Angular (14 → 20, Signals, RxJS, NgRx) every day at work; React 18 with hooks, Router and Hook Form in my own builds.',
     tags: ['Angular', 'Signals', 'React', 'NgRx'],
   },
   {
-    icon: 'fa-solid fa-server',
-    title: 'Full stack delivery',
-    description: 'Java & Spring Boot REST APIs with validation and security, backed by tuned MySQL queries.',
-    tags: ['Spring Boot', 'REST', 'MySQL'],
+    icon: 'fa-solid fa-wand-magic-sparkles',
+    title: 'AI-assisted engineering',
+    description:
+      'Prompt engineering with Cursor, Claude and ChatGPT to prototype, refactor and generate tests faster — reviewed like any other code.',
+    tags: ['Prompting', 'Cursor', 'Claude'],
   },
   {
     icon: 'fa-solid fa-handshake',
@@ -208,23 +236,23 @@ export const CASE_STUDIES: CaseStudy[] = [
     id: 'commerce',
     title: 'E-commerce & Salesforce Apps',
     client: 'US clients · Girnar Newtel Solutions',
-    role: 'Software Engineer (Full Stack)',
+    role: 'Software Engineer · Frontend & UI',
     period: '2022 — 2024',
     summary:
-      'Customer-facing commerce journeys and Salesforce-integrated enterprise tools — end to end, from Angular UI to Spring Boot APIs.',
+      'Customer-facing commerce journeys and Salesforce-integrated enterprise tools, built in Angular with NgRx state management.',
     challenge:
       'High-traffic journeys had to load fast and work in every browser, while new Angular UIs lived alongside legacy JSP/Servlet modules.',
     approach: [
       'Built reusable components and optimised customer user journeys',
-      'Designed secure Spring Boot REST APIs with validation and exception handling',
-      'Optimised MySQL queries on high-traffic endpoints',
+      'Managed complex app state with NgRx and RxJS',
+      'Integrated REST APIs end to end, working closely with the backend team on contracts',
       'Delivered Angular upgrades while maintaining legacy modules',
     ],
     impact: [
       { value: '~30%', label: 'faster page loads' },
-      { value: 'E2E', label: 'UI, APIs and data layer' },
+      { value: 'Cross-browser', label: 'consistent on every major browser' },
     ],
-    stack: ['Angular', 'NgRx', 'RxJS', 'Java', 'Spring Boot', 'MySQL'],
+    stack: ['Angular', 'NgRx', 'RxJS', 'TypeScript', 'REST APIs'],
     visual: 'commerce',
   },
   {
@@ -268,7 +296,7 @@ export const PROCESS: ProcessStep[] = [
   {
     icon: 'fa-solid fa-code',
     title: 'Build',
-    description: 'Typed, tested frontends and Spring Boot APIs, connected through clear API contracts.',
+    description: 'Typed, tested Angular and React frontends, wired to APIs through clear contracts.',
   },
   {
     icon: 'fa-solid fa-rocket',
@@ -296,16 +324,16 @@ export const EXPERIENCE: Role[] = [
   },
   {
     company: 'Girnar Newtel Solutions',
-    title: 'Software Engineer (Full Stack)',
+    title: 'Software Engineer',
     location: 'Hyderabad',
     period: 'Jun 2022 — Aug 2024',
     highlights: [
-      'Developed full stack e-commerce and Salesforce-integrated applications for US clients.',
+      'Developed e-commerce and Salesforce-integrated applications for US clients with Angular, TypeScript, RxJS and NgRx.',
       'Built reusable components and optimised user journeys, reducing page load time by ~30% with cross-browser support.',
-      'Designed Spring Boot REST APIs with validation, security and exception handling; optimised MySQL queries.',
+      'Integrated REST APIs and managed complex application state with NgRx and RxJS.',
       'Delivered Angular upgrades and maintained legacy JSP/Servlet modules alongside new Angular UIs.',
     ],
-    stack: ['Angular', 'RxJS', 'NgRx', 'Java', 'Spring Boot', 'MySQL'],
+    stack: ['Angular', 'RxJS', 'NgRx', 'TypeScript', 'REST APIs'],
   },
   {
     company: 'Achala IT Solutions',
@@ -320,45 +348,113 @@ export const EXPERIENCE: Role[] = [
   },
   {
     company: 'Rugas Technologies',
-    title: 'Full Stack Developer Intern',
+    title: 'Software Developer Intern',
     location: 'Bangalore',
     period: '2020',
-    highlights: ['Built frontend features in Vue.js and backend services in Feathers.js (Node.js) for an e-commerce app.'],
-    stack: ['Vue.js', 'Node.js', 'Feathers.js'],
+    highlights: ['Built frontend features in Vue.js for an e-commerce application.'],
+    stack: ['Vue.js', 'JavaScript', 'HTML', 'CSS'],
   },
 ];
 
 export const SKILLS: SkillGroup[] = [
   {
-    icon: 'fa-solid fa-window-maximize',
-    title: 'Frontend',
-    items: ['Angular (14–20)', 'Signals', 'React', 'React Hooks', 'TypeScript', 'JavaScript (ES6+)', 'RxJS', 'NgRx', 'HTML5', 'CSS / SCSS', 'Angular Material', 'Reactive Forms', 'Lazy Loading', 'Vue.js'],
+    icon: 'fa-brands fa-angular',
+    title: 'Angular',
+    items: ['Angular (14–20)', 'Signals', 'Standalone Components', 'RxJS', 'NgRx', 'Reactive Forms', 'Angular Material', 'Angular CDK', 'Lazy Loading'],
+  },
+  {
+    icon: 'fa-brands fa-react',
+    title: 'React',
+    items: ['React 18', 'Hooks', 'Context API', 'React Router', 'React Hook Form', 'Zod', 'Material UI', 'dnd-kit', 'Recharts', 'Vite'],
+  },
+  {
+    icon: 'fa-solid fa-code',
+    title: 'Core web',
+    items: ['TypeScript', 'JavaScript (ES6+)', 'HTML5', 'CSS / SCSS', 'Tailwind CSS', 'Responsive & Mobile-First', 'Web Performance', 'REST API Integration', 'Web Crypto API'],
   },
   {
     icon: 'fa-solid fa-pen-nib',
-    title: 'UI / UX',
-    items: ['Figma', 'Design Systems', 'Design Tokens', 'Component Libraries', 'Responsive & Mobile-First', 'Accessibility (WCAG)', 'Prototyping', 'Custom Animations'],
-  },
-  {
-    icon: 'fa-solid fa-database',
-    title: 'Backend & Data',
-    items: ['Java', 'Spring Boot', 'RESTful APIs', 'API Contract Design', 'Node.js (Feathers.js)', 'JSP/Servlets', 'MySQL', 'SQL'],
+    title: 'UX design',
+    items: ['Figma', 'Wireframing', 'User Flows', 'Interactive Prototypes', 'UX Principles', 'Design Systems', 'Design Tokens', 'Component Libraries', 'Accessibility (WCAG)', 'Micro-interactions'],
   },
   {
     icon: 'fa-solid fa-vial-circle-check',
-    title: 'Testing & Quality',
-    items: ['Jasmine', 'Karma', 'JUnit', 'Unit Testing', 'TDD', 'Debugging', 'Code Reviews'],
+    title: 'Testing & delivery',
+    items: ['Vitest', 'React Testing Library', 'Jasmine', 'Karma', 'TDD', 'Code Reviews', 'Git', 'CI/CD (GitHub Actions)', 'Agile (Scrum/Kanban)'],
   },
   {
     icon: 'fa-solid fa-wand-magic-sparkles',
-    title: 'Tools & AI',
-    items: ['Git', 'CI/CD', 'AWS', 'VS Code', 'Cursor AI', 'Claude', 'ChatGPT'],
+    title: 'AI-assisted engineering',
+    items: ['Prompt Engineering', 'Cursor AI', 'Claude & Claude Code', 'ChatGPT', 'AI Pair Programming', 'AI Prototyping', 'AI-assisted Refactoring', 'AI Test Generation', 'Reviewing AI Output'],
   },
-  {
-    icon: 'fa-solid fa-people-group',
-    title: 'Practices',
-    items: ['Agile (Scrum/Kanban)', 'System Design', 'Web Performance', 'Application Security', 'Client Collaboration', 'Mentoring'],
-  },
+];
+
+export const FEATURED: FeaturedProject = {
+  title: 'Job Application Tracker',
+  kicker: 'Personal project · React 18',
+  tagline: 'A colourful, drag-and-drop Kanban for the job hunt.',
+  summary:
+    'Designed and built end to end in React: track applications across a Kanban board, get follow-up nudges and see progress on a live dashboard. Front-end only — everything stays in the browser.',
+  live: 'https://yellareswaribatta.github.io/job-application-tracker/',
+  source: 'https://github.com/YellareswariBatta/job-application-tracker',
+  shots: [
+    { id: 'board', label: 'Board', src: 'projects/board.webp', alt: 'Kanban board with Applied, Interviewing, Offer and Rejected columns of job cards' },
+    { id: 'dashboard', label: 'Dashboard', src: 'projects/dashboard.webp', alt: 'Dashboard with response rate, status donut chart and weekly applications bar chart' },
+    { id: 'landing', label: 'Landing', src: 'projects/landing.webp', alt: 'Landing page reading “Land your next role, one application at a time”' },
+  ],
+  features: [
+    { icon: 'fa-solid fa-grip', title: 'Drag-and-drop board', text: 'Mouse, touch and keyboard drag with dnd-kit, plus undo for every move.' },
+    { icon: 'fa-solid fa-list-check', title: 'Validated forms', text: 'React Hook Form + Zod, and a paste-a-job-advert helper that pre-fills fields.' },
+    { icon: 'fa-solid fa-chart-pie', title: 'Insightful dashboard', text: 'Response rate, hiring funnel and a weekly goal ring, charted with Recharts.' },
+    { icon: 'fa-solid fa-shield-halved', title: 'Private by design', text: 'Browser-only accounts with salted PBKDF2 hashing via the Web Crypto API.' },
+    { icon: 'fa-solid fa-scale-balanced', title: 'Offer comparison', text: 'Compare up to three offers with an effective hourly rate estimate.' },
+    { icon: 'fa-solid fa-palette', title: 'Themes & exports', text: 'Light/dark mode, five colour themes, and JSON, CSV and .ics export.' },
+  ],
+  stack: ['React 18', 'Vite', 'React Router', 'Material UI', 'Tailwind CSS', 'dnd-kit', 'React Hook Form', 'Zod', 'Recharts', 'Vitest', 'React Testing Library', 'GitHub Actions'],
+};
+
+/** Side-by-side snippets for the Angular ⇄ React switcher. */
+export const FRAMEWORK_SNIPPETS = {
+  angular: `@Component({
+  selector: 'app-status-card',
+  template: \`
+    <article class="card">
+      <h3>{{ company() }}</h3>
+      <app-badge [status]="status()" />
+      <button (click)="advance()">Move forward</button>
+    </article>
+  \`,
+})
+export class StatusCard {
+  company = input.required<string>();
+  status = signal<Status>('applied');
+
+  advance() {
+    this.status.update(next);
+  }
+}`,
+  react: `export function StatusCard({ company }: Props) {
+  const [status, setStatus] = useState<Status>('applied');
+
+  return (
+    <article className="card">
+      <h3>{company}</h3>
+      <Badge status={status} />
+      <button onClick={() => setStatus(next)}>
+        Move forward
+      </button>
+    </article>
+  );
+}`,
+};
+
+export const FRAMEWORK_PAIRS = [
+  { topic: 'State', angular: 'Signals & computed', react: 'useState & useMemo' },
+  { topic: 'Async', angular: 'RxJS & effects', react: 'Hooks & effects' },
+  { topic: 'App state', angular: 'NgRx', react: 'Context API' },
+  { topic: 'Forms', angular: 'Reactive Forms', react: 'React Hook Form + Zod' },
+  { topic: 'UI kit', angular: 'Material & CDK', react: 'Material UI & Tailwind' },
+  { topic: 'Testing', angular: 'Jasmine, Karma, Vitest', react: 'Vitest & Testing Library' },
 ];
 
 export const EDUCATION = {

@@ -1,10 +1,17 @@
 <footer class="footer">
   <div class="container footer-inner">
     <p>
-      © {{ year }} {{ profile.name }}. Designed &amp; built with Angular, Signals and a home-grown design system.
+      © {{ year }} {{ profile.name }}. Built with Angular &amp; Signals — the React side lives in the featured project.
     </p>
-    <a href="#top" class="top" (click)="toTop($event)">
-      Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
-    </a>
+    <div class="links">
+      @if (!buddy.visible()) {
+        <button type="button" class="guide" (click)="buddy.setVisible(true)">
+          <i class="fa-solid fa-person-walking" aria-hidden="true"></i> Show the guide
+        </button>
+      }
+      <a href="#top" class="top" (click)="toTop($event)">
+        Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+      </a>
+    </div>
   </div>
 </footer>

@@ -1,0 +1,113 @@
+<section class="section featured" id="featured" aria-labelledby="featured-title">
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-head" appReveal>
+      <span class="eyebrow">Featured build · React</span>
+      <h2 id="featured-title">Angular is home. <span class="gradient-text">React is fluent.</span></h2>
+      <p>My latest side project — designed, built, tested and shipped solo in React 18. Go on, try it live.</p>
+    </div>
+
+    <div class="showcase">
+      <!-- Browser frame with real screenshots -->
+      <div
+        class="stage"
+        appReveal
+        (mouseenter)="pause(true)"
+        (mouseleave)="pause(false)"
+        (focusin)="pause(true)"
+        (focusout)="pause(false)"
+      >
+        <div class="browser card" appSpotlight [appTilt]="4">
+          <div class="bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="url">
+              <i class="fa-solid fa-lock" aria-hidden="true"></i>
+              yellareswaribatta.github.io/job-application-tracker
+            </span>
+            <span class="live"><span class="pulse" aria-hidden="true"></span>Live</span>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Screens">
+            @for (shot of project.shots; track shot.id; let i = $index) {
+              <button
+                type="button"
+                role="tab"
+                class="tab"
+                [id]="'shot-tab-' + shot.id"
+                [attr.aria-selected]="active() === i"
+                [attr.aria-controls]="'shot-panel'"
+                [attr.tabindex]="active() === i ? 0 : -1"
+                (click)="select(i)"
+                (keydown)="onTabKey($event)"
+              >
+                {{ shot.label }}
+                @if (active() === i) {
+                  <span class="progress" aria-hidden="true"></span>
+                }
+              </button>
+            }
+          </div>
+
+          <div
+            class="screen"
+            id="shot-panel"
+            role="tabpanel"
+            [attr.aria-labelledby]="'shot-tab-' + project.shots[active()].id"
+          >
+            @for (shot of project.shots; track shot.id; let i = $index) {
+              <img
+                [src]="shot.src"
+                [alt]="active() === i ? shot.alt : ''"
+                [class.on]="active() === i"
+                [attr.aria-hidden]="active() === i ? null : 'true'"
+                width="1440"
+                height="900"
+                loading="lazy"
+                decoding="async"
+              />
+            }
+          </div>
+        </div>
+
+        <span class="float f1"><i class="fa-solid fa-grip" aria-hidden="true"></i> dnd-kit</span>
+        <span class="float f2"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Zod-validated</span>
+        <span class="float f3"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i> Recharts</span>
+      </div>
+
+      <!-- Project copy -->
+      <div class="info" appReveal [revealDelay]="120">
+        <span class="kicker"><i class="fa-brands fa-react" aria-hidden="true"></i> {{ project.kicker }}</span>
+        <h3>{{ project.title }}</h3>
+        <p class="tagline">{{ project.tagline }}</p>
+        <p class="summary">{{ project.summary }}</p>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" [href]="project.live" target="_blank" rel="noopener" appMagnetic>
+            Try the live demo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+          </a>
+          <a class="btn btn-ghost" [href]="project.source" target="_blank" rel="noopener" appMagnetic>
+            <i class="fa-brands fa-github" aria-hidden="true"></i> Source code
+          </a>
+        </div>
+
+        <div class="tag-list">
+          @for (t of project.stack; track t) {
+            <span class="tag">{{ t }}</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <ul class="features">
+      @for (f of project.features; track f.title; let i = $index) {
+        <li class="card feature" appSpotlight appReveal [revealDelay]="(i % 3) * 80">
+          <span class="f-icon"><i [class]="f.icon" aria-hidden="true"></i></span>
+          <div>
+            <h4>{{ f.title }}</h4>
+            <p>{{ f.text }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

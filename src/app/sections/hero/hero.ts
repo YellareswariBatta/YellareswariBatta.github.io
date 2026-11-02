@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, afterNextRender, inject, signal } from '@angular/core';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { MARQUEE, PROFILE } from '../../data/portfolio.data';
 import { ACCENTS, ThemeService } from '../../shared/theme.service';
@@ -22,8 +22,20 @@ export class Hero {
   protected readonly chips = [
     { cls: 'chip-1', icon: 'fa-brands fa-angular', label: 'Angular 20 · Signals' },
     { cls: 'chip-2', icon: 'fa-brands fa-figma', label: 'Figma → Code' },
-    { cls: 'chip-3', icon: 'fa-solid fa-bolt', label: '~30% faster UI dev' },
+    { cls: 'chip-3', icon: 'fa-brands fa-react', label: 'React 18 · Hooks' },
   ];
+
+  protected readonly fluentWords = ['Angular', 'React', 'Figma prototyping', 'TypeScript', 'Design systems', 'Accessibility'];
+  protected readonly fluent = signal(0);
+
+  constructor() {
+    const destroyRef = inject(DestroyRef);
+    afterNextRender(() => {
+      if (typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const timer = setInterval(() => this.fluent.update((i) => (i + 1) % this.fluentWords.length), 2200);
+      destroyRef.onDestroy(() => clearInterval(timer));
+    });
+  }
 
   // Headline split into words so each can animate in on a stagger.
   protected readonly headline = [

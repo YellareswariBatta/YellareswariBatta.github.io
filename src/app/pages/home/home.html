@@ -4,7 +4,9 @@
 <main id="main" tabindex="-1">
   <app-hero />
   <app-about />
+  <app-stack-switch />
   <app-impact />
+  <app-featured />
   <app-projects />
   <app-process />
   <app-sandbox />
@@ -14,3 +16,7 @@
 </main>
 
 <app-footer />
+
+@if (buddy.visible()) {
+  <app-scroll-buddy />
+}

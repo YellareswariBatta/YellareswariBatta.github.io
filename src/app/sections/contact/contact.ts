@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { PROFILE } from '../../data/portfolio.data';
+import { OPEN_ROLES, PROFILE } from '../../data/portfolio.data';
 import { RevealDirective } from '../../shared/reveal.directive';
 import { MagneticDirective } from '../../shared/magnetic.directive';
 
@@ -11,6 +11,7 @@ import { MagneticDirective } from '../../shared/magnetic.directive';
 })
 export class Contact {
   protected readonly profile = PROFILE;
+  protected readonly roles = OPEN_ROLES;
   protected readonly copied = signal(false);
 
   async copyEmail() {

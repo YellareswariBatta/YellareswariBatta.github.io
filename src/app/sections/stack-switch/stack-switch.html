@@ -1,0 +1,97 @@
+<section class="section stack" id="stack" aria-labelledby="stack-title">
+  <div class="container">
+    <div class="section-head center" appReveal>
+      <span class="eyebrow">Framework-flexible</span>
+      <h2 id="stack-title">One engineer, <span class="gradient-text">two ecosystems.</span></h2>
+      <p>
+        Same component, same UX, same accessibility bar — whichever stack your team runs. Flip the switch and see.
+      </p>
+    </div>
+
+    <div class="switch-wrap" appReveal [revealDelay]="80">
+      <div class="seg" role="tablist" aria-label="Framework" [attr.data-active]="framework()">
+        <span class="thumb" aria-hidden="true"></span>
+        <button
+          type="button"
+          role="tab"
+          data-fw="angular"
+          id="fw-tab-angular"
+          aria-controls="fw-panel"
+          [attr.aria-selected]="framework() === 'angular'"
+          [attr.tabindex]="framework() === 'angular' ? 0 : -1"
+          (click)="set('angular')"
+          (keydown)="onKey($event)"
+        >
+          <i class="fa-brands fa-angular" aria-hidden="true"></i> Angular
+        </button>
+        <button
+          type="button"
+          role="tab"
+          data-fw="react"
+          id="fw-tab-react"
+          aria-controls="fw-panel"
+          [attr.aria-selected]="framework() === 'react'"
+          [attr.tabindex]="framework() === 'react' ? 0 : -1"
+          (click)="set('react')"
+          (keydown)="onKey($event)"
+        >
+          <i class="fa-brands fa-react" aria-hidden="true"></i> React
+        </button>
+      </div>
+    </div>
+
+    <div class="grid" id="fw-panel" role="tabpanel" [attr.aria-labelledby]="'fw-tab-' + framework()">
+      <!-- Code -->
+      <div class="editor card" [attr.data-fw]="framework()" appReveal>
+        <div class="editor-bar">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="file">{{ fileName() }}</span>
+        </div>
+        <div class="code-stack">
+          <pre class="code" [class.on]="framework() === 'angular'" [attr.aria-hidden]="framework() !== 'angular'"><code [innerHTML]="code.angular"></code></pre>
+          <pre class="code" [class.on]="framework() === 'react'" [attr.aria-hidden]="framework() !== 'react'"><code [innerHTML]="code.react"></code></pre>
+        </div>
+      </div>
+
+      <!-- Live preview -->
+      <div class="preview" appReveal [revealDelay]="120">
+        <span class="preview-label">Live preview</span>
+        <article class="card status-card" appSpotlight [class.win]="celebrate()">
+          <div class="sc-head">
+            <span class="sc-avatar" aria-hidden="true">N</span>
+            <div>
+              <h3>Northwind Digital</h3>
+              <p>Frontend Developer</p>
+            </div>
+          </div>
+          <span class="badge" [attr.data-status]="status()" aria-live="polite">{{ status() }}</span>
+          <button type="button" class="btn btn-primary move" (click)="advance()">
+            {{ celebrate() ? 'Start again' : 'Move forward' }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </button>
+          @if (celebrate()) {
+            <div class="confetti" aria-hidden="true">
+              @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; track n) {
+                <i [style.--n]="n"></i>
+              }
+            </div>
+          }
+        </article>
+        <p class="preview-note">
+          Click through the statuses. Rendered here with Angular signals; the React version behaves identically.
+        </p>
+      </div>
+    </div>
+
+    <!-- Concept map -->
+    <ul class="pairs" appReveal>
+      @for (p of pairs; track p.topic) {
+        <li>
+          <span class="topic">{{ p.topic }}</span>
+          <span class="side ng" [class.on]="framework() === 'angular'">{{ p.angular }}</span>
+          <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
+          <span class="side re" [class.on]="framework() === 'react'">{{ p.react }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

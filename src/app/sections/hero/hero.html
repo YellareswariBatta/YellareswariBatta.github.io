@@ -9,7 +9,7 @@
     <div class="hero-copy">
       <span class="status" appReveal>
         <span class="pulse" aria-hidden="true"></span>
-        Open to Senior Frontend, Full Stack &amp; UI/UX roles
+        Open to Senior Frontend, Angular, React &amp; UI/UX roles
       </span>
 
       <p class="hello" appReveal [revealDelay]="80">Hi, I&apos;m {{ profile.name }} —</p>
@@ -22,10 +22,20 @@
         }
       </h1>
 
+      <p class="fluent" appReveal [revealDelay]="200">
+        <span class="fluent-label">Fluent in</span>
+        <span class="rotator" aria-live="off">
+          @for (word of fluentWords; track word; let i = $index) {
+            <span class="rotator-word" [class.on]="fluent() === i">{{ word }}</span>
+          }
+        </span>
+        <span class="sr-only">Angular, React, Figma prototyping, TypeScript, design systems and accessibility</span>
+      </p>
+
       <p class="lede" appReveal [revealDelay]="240">
-        Senior Full Stack Engineer &amp; UI/UX Developer with <strong>5+ years</strong> turning Figma designs and
-        business goals into accessible, scalable products for <strong>healthcare, e-commerce, Salesforce</strong> and
-        <strong>banking</strong> clients across the UK &amp; US.
+        Senior Frontend Engineer with <strong>5+ years</strong> building accessible, high-performance web apps in
+        <strong>Angular</strong> and <strong>React</strong> with TypeScript — plus the UX and design-system depth to
+        make them a joy to use. Healthcare, e-commerce, Salesforce and banking products for UK &amp; US clients.
       </p>
 
       <div class="cta-row" appReveal [revealDelay]="320">

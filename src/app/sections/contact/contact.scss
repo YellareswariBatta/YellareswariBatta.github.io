@@ -145,3 +145,39 @@
     color: #fff;
   }
 }
+
+.roles {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  max-width: 860px;
+
+  .tag-list {
+    justify-content: center;
+  }
+}
+
+.roles-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a1a1aa;
+}
+
+.role-chip {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e4e4e7;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.3s var(--ease-spring);
+
+  &:hover {
+    background: color-mix(in oklab, var(--accent-a) 22%, transparent);
+    border-color: color-mix(in oklab, var(--accent-a) 50%, transparent);
+    transform: translateY(-2px);
+  }
+}
